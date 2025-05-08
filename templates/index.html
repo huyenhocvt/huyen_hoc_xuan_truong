@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Giờ hiện tại</title>
+</head>
+<body style="text-align:center; padding-top: 50px; font-family: Arial">
+    <h1>Kiểm tra giờ hiện tại ở TP.HCM</h1>
+
+    <!-- Nút hiện giờ -->
+    <form action="/get-time" method="get">
+        <button type="submit">Giờ hiện tại</button>
+    </form>
+
+    <br><br>
+
+    <!-- Nút chuyển sang trang Báo Mới -->
+    <a href="https://baomoi.com" target="_blank">
+        <button>Báo Mới</button>
+    </a>
+
+    <br><br>
+
+    <!-- Hiển thị kết quả nếu có -->
+    {% if current_time %}
+        <p>{{ current_time }}</p>
+    {% endif %}
+</body>
+</html>
