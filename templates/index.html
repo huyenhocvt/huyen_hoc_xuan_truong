@@ -2,40 +2,35 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Trang chủ</title>
+    <title>Trang chủ - Huyền học Xuân Trường</title>
 </head>
-<body style="text-align:center; padding-top:50px; font-family:Arial">
-    <h2>Chào mừng bạn đến với tiện ích</h2>
+<body style="text-align:center; padding-top: 50px; font-family: Arial">
+    <h1>Chào mừng bạn đến với trang Huyền học Xuân Trường</h1>
 
-    <!-- Nút lấy giờ hiện tại -->
-    <button onclick="layGio()">Giờ hiện tại</button>
+    <!-- Nút xem giờ hiện tại -->
+    <form action="/get-time" method="get">
+        <button type="submit">Giờ hiện tại</button>
+    </form>
 
     <br><br>
 
-    <!-- Nút mở Báo Mới -->
+    <!-- Nút mở form Độ Nhà -->
+    <form action="/do-nha" method="get">
+        <button type="submit">Độ Nhà</button>
+    </form>
+
+    <br><br>
+
+    <!-- Nút chuyển sang trang Báo Mới -->
     <a href="https://baomoi.com" target="_blank">
         <button>Báo Mới</button>
     </a>
 
     <br><br>
 
-    <!-- Nút sang trang Độ Nhà -->
-    <a href="/do-nha">
-        <button>Độ Nhà</button>
-    </a>
-
-    <br><br>
-
-    <p id="gio"></p>
-
-    <script>
-        function layGio() {
-            fetch("/get-time")
-                .then(res => res.json())
-                .then(data => {
-                    document.getElementById("gio").innerText = data.time;
-                });
-        }
-    </script>
+    <!-- Kết quả giờ hiện tại nếu có -->
+    {% if current_time %}
+        <p>{{ current_time }}</p>
+    {% endif %}
 </body>
 </html>
