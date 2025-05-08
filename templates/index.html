@@ -2,35 +2,109 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Trang chủ - Huyền học Xuân Trường</title>
+    <title>Huyền học Xuân Trường</title>
+    <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            grid-template-rows: auto auto;
+            gap: 10px;
+            height: 100vh;
+            padding: 10px;
+            font-family: Arial, sans-serif;
+        }
+
+        .cell {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .cell-logo {
+            grid-column: 1;
+            grid-row: 1;
+        }
+
+        .cell-image {
+            grid-column: 2;
+            grid-row: 1;
+            text-align: right;
+        }
+
+        .cell-roiter {
+            grid-column: 1;
+            grid-row: 2;
+        }
+
+        .cell-content {
+            grid-column: 2;
+            grid-row: 2;
+        }
+
+        .roiter-group {
+            margin-bottom: 20px;
+        }
+
+        .roiter-group h3 {
+            margin-bottom: 10px;
+            color: red;
+            font-weight: bold;
+            font-size: 20px;
+            text-align: left;
+        }
+
+        .roiter-group a {
+            display: block;
+            margin: 3px 0;
+            font-size: 17px;
+            font-weight: bold;
+            color: red;
+            text-align: left;
+            text-decoration: none;
+        }
+
+        .roiter-group a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
-<body style="text-align:center; padding-top: 50px; font-family: Arial">
-    <h1>Chào mừng bạn đến với trang Huyền học Xuân Trường</h1>
+<body>
+    <div class="grid-container">
 
-    <!-- Nút xem giờ hiện tại -->
-    <form action="/get-time" method="get">
-        <button type="submit">Giờ hiện tại</button>
-    </form>
+        <!-- Ô 1: Logo -->
+        <div class="cell cell-logo">
+            <img src="/static/images/logo.png" alt="Logo" style="height: 80px;">
+        </div>
 
-    <br><br>
+        <!-- Ô 2: Hình ảnh -->
+        <div class="cell cell-image">
+            <img src="/static/images/hinh_o_2.png" alt="Hình ô 2" style="height: 80px;">
+        </div>
 
-    <!-- Nút mở form Độ Nhà -->
-    <form action="/do-nha" method="get">
-        <button type="submit">Độ Nhà</button>
-    </form>
+        <!-- Ô 3: Nhóm roiter -->
+        <div class="cell cell-roiter">
+            <div class="roiter-group">
+                <h3>QUẺ DỊCH</h3>
+                <a href="#">Lập quẻ</a>
+                <a href="#">Giải nghĩa</a>
+            </div>
+            <div class="roiter-group">
+                <h3>XEM NGÀY</h3>
+                <a href="#">Xem ngày cưới</a>
+                <a href="#">Xem khai trương</a>
+            </div>
+            <div class="roiter-group">
+                <h3>TIỆN ÍCH</h3>
+                <a href="/get-time">Giờ hiện tại</a>
+                <a href="/do-nha">Độ Nhà</a>
+                <a href="https://baomoi.com" target="_blank">Báo Mới</a>
+            </div>
+        </div>
 
-    <br><br>
-
-    <!-- Nút chuyển sang trang Báo Mới -->
-    <a href="https://baomoi.com" target="_blank">
-        <button>Báo Mới</button>
-    </a>
-
-    <br><br>
-
-    <!-- Kết quả giờ hiện tại nếu có -->
-    {% if current_time %}
-        <p>{{ current_time }}</p>
-    {% endif %}
+        <!-- Ô 4: Nội dung hiển thị -->
+        <div class="cell cell-content">
+            <p>Chào mừng bạn đến với hệ thống Huyền học Xuân Trường.</p>
+            <p>Tại đây bạn có thể tra cứu ngày tốt, lập quẻ, xem phong thủy nhà cửa và nhiều tiện ích khác.</p>
+        </div>
+    </div>
 </body>
 </html>
