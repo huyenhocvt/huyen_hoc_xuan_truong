@@ -10,7 +10,8 @@ def index():
 @app.route('/get-time')
 def get_time():
     now = datetime.now()
-    return jsonify({'time': now.strftime("Bây giờ là %Hh%M ngày %d/%m/%Y")})
+    current_time = now.strftime("Bây giờ là %Hh%M ngày %d/%m/%Y")
+    return jsonify({'time': current_time})
 
 if __name__ == '__main__':
     app.run()

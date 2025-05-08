@@ -2,28 +2,33 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Giờ hiện tại</title>
+    <title>Trang chủ</title>
 </head>
-<body style="text-align:center; padding-top: 50px; font-family: Arial">
-    <h1>Kiểm tra giờ hiện tại ở TP.HCM</h1>
+<body style="text-align:center; padding-top:50px; font-family:Arial">
+    <h2>Chào mừng bạn đến với tiện ích</h2>
 
-    <!-- Nút hiện giờ -->
-    <form action="/get-time" method="get">
-        <button type="submit">Giờ hiện tại</button>
-    </form>
+    <!-- Nút lấy giờ hiện tại -->
+    <button onclick="layGio()">Giờ hiện tại</button>
 
     <br><br>
 
-    <!-- Nút chuyển sang trang Báo Mới -->
+    <!-- Nút mở Báo Mới -->
     <a href="https://baomoi.com" target="_blank">
         <button>Báo Mới</button>
     </a>
 
     <br><br>
 
-    <!-- Hiển thị kết quả nếu có -->
-    {% if current_time %}
-        <p>{{ current_time }}</p>
-    {% endif %}
+    <p id="gio"></p>
+
+    <script>
+        function layGio() {
+            fetch("/get-time")
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById("gio").innerText = data.time;
+                });
+        }
+    </script>
 </body>
 </html>
