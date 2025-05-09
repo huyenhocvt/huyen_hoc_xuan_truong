@@ -1,11 +1,12 @@
-from flask import Flask, render_template, request, send_file, jsonify
+from flask import Flask, render_template, request, jsonify
 from datetime import datetime
 import os
-import openai
+from openai import OpenAI
 from PIL import Image
 import pytesseract
 
 app = Flask(__name__)
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 @app.route('/')
 def index():
@@ -41,8 +42,7 @@ def tra_loi_khach():
         if text_input.strip():
             prompt = f"Khách hàng gửi nội dung sau:\n{text_input.strip()}\n\nHãy đưa ra 3 phương án trả lời phù hợp, lịch sự và hỗ trợ tốt."
             try:
-                openai.api_key = os.getenv("OPENAI_API_KEY")
-                response = openai.ChatCompletion.create(
+                response = client.chat.completions.create(
                     model="gpt-4",
                     messages=[{"role": "user", "content": prompt}],
                     temperature=0.7,
@@ -52,8 +52,9 @@ def tra_loi_khach():
             except Exception as e:
                 response_text = f"Lỗi GPT: {e}"
 
-    return render_template("tra_loi_khach.html", output=response_text)
-    
+    output_list = [s.strip() for s in response_text.split("\n") if s.strip()]
+    return render_template("tra_loi_khach.html", output=output_list)
+
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
