@@ -5,8 +5,6 @@ import openai
 from PIL import Image
 import pytesseract
 
-from xuat_so_do_nha import xuat_so_do
-
 app = Flask(__name__)
 
 @app.route('/')
@@ -24,15 +22,10 @@ def do_nha():
         dulieu = request.form['dulieu']
         try:
             toa_do, ten_nguoi_dung = [x.strip() for x in dulieu.split(',', 1)]
-            file_path = xuat_so_do(toa_do, ten_nguoi_dung)
-            return send_file(file_path, as_attachment=True)
+            return f"Sẽ xử lý tọa độ: {toa_do}, người dùng: {ten_nguoi_dung}"
         except Exception as e:
             return f"Lỗi xử lý: {e}"
     return render_template('do_nha_input.html')
-
-if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 10000))
-    app.run(host="0.0.0.0", port=port)
 
 @app.route('/tra-loi-khach', methods=['GET', 'POST'])
 def tra_loi_khach():
@@ -41,15 +34,14 @@ def tra_loi_khach():
         text_input = request.form.get("text_input", "")
         image = request.files.get("image")
 
-        # Nếu có ảnh, OCR ra text
         if image:
             img = Image.open(image.stream)
             text_input = pytesseract.image_to_string(img)
 
         if text_input.strip():
-            prompt = f"""Khách hàng gửi nội dung sau:\n{text_input.strip()}\n\nHãy đưa ra 3 phương án trả lời phù hợp, lịch sự và hỗ trợ tốt."""
+            prompt = f"Khách hàng gửi nội dung sau:\n{text_input.strip()}\n\nHãy đưa ra 3 phương án trả lời phù hợp, lịch sự và hỗ trợ tốt."
             try:
-                openai.api_key = os.getenv("OPENAI_API_KEY")  # Set biến môi trường trên Render
+                openai.api_key = os.getenv("OPENAI_API_KEY")
                 response = openai.ChatCompletion.create(
                     model="gpt-4",
                     messages=[{"role": "user", "content": prompt}],
@@ -60,4 +52,8 @@ def tra_loi_khach():
             except Exception as e:
                 response_text = f"Lỗi GPT: {e}"
 
-    return f"<pre>{response_text}</pre>"
+    return render_template("tra_loi_khach.html", output=response_text)
+    
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)

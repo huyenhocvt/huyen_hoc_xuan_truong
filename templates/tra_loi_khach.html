@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head><title>Trả lời khách hàng</title></head>
+<body>
+    <h2>Gửi nội dung khách hàng (text hoặc ảnh)</h2>
+    <form method="POST" enctype="multipart/form-data">
+        <textarea name="text_input" rows="5" cols="60" placeholder="Nhập nội dung khách hàng..."></textarea><br><br>
+        <input type="file" name="image" accept="image/*"><br><br>
+        <input type="submit" value="Gửi yêu cầu">
+    </form>
+
+    {% if output %}
+        <hr><h3>Gợi ý trả lời:</h3>
+        <pre>{{ output }}</pre>
+    {% endif %}
+</body>
+</html>

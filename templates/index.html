@@ -9,7 +9,6 @@
             padding: 0;
             height: 100%;
         }
-
         .grid-container {
             display: grid;
             grid-template-columns: 1fr 2fr;
@@ -18,47 +17,22 @@
             height: 100vh;
             font-family: Arial, sans-serif;
         }
-
         .cell {
             border: 1px solid #ccc;
             padding: 0;
             overflow: hidden;
         }
-
-        .cell-logo {
-            grid-column: 1;
-            grid-row: 1;
-        }
-
-        .cell-image {
-            grid-column: 2;
-            grid-row: 1;
-        }
-
-        .cell-roiter {
-            grid-column: 1;
-            grid-row: 2;
-            padding: 10px;
-        }
-
-        .cell-content {
-            grid-column: 2;
-            grid-row: 2;
-            padding: 10px;
-        }
-
-        .cell-logo img,
-        .cell-image img {
+        .cell-logo { grid-column: 1; grid-row: 1; }
+        .cell-image { grid-column: 2; grid-row: 1; }
+        .cell-roiter { grid-column: 1; grid-row: 2; padding: 10px; }
+        .cell-content { grid-column: 2; grid-row: 2; padding: 10px; }
+        .cell-logo img, .cell-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
         }
-
-        .roiter-group {
-            margin-bottom: 20px;
-        }
-
+        .roiter-group { margin-bottom: 20px; }
         .roiter-group h3 {
             margin-bottom: 10px;
             color: red;
@@ -66,7 +40,6 @@
             font-size: 20px;
             text-align: left;
         }
-
         .roiter-group a {
             display: block;
             margin: 3px 0;
@@ -76,46 +49,19 @@
             text-align: left;
             text-decoration: none;
         }
-
-        .roiter-group a:hover {
-            text-decoration: underline;
-        }
+        .roiter-group a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
     <div class="grid-container">
-
-        <!-- Ô 1: Logo -->
-        <div class="cell cell-logo">
-            <img src="/static/images/logo.png" alt="Logo">
-        </div>
-
-        <!-- Ô 2: Hình ảnh -->
-        <div class="cell cell-image">
-            <img src="/static/images/hinh_o_2.png" alt="Hình ô 2">
-        </div>
-
-        <!-- Ô 3: Nhóm roiter -->
+        <div class="cell cell-logo"><img src="/static/images/logo.png" alt="Logo"></div>
+        <div class="cell cell-image"><img src="/static/images/hinh_o_2.png" alt="Hình ô 2"></div>
         <div class="cell cell-roiter">
-            <div class="roiter-group">
-                <h3>QUẺ DỊCH</h3>
-                <a href="#">Lập quẻ</a>
-                <a href="#">Giải nghĩa</a>
-            </div>
-            <div class="roiter-group">
-                <h3>XEM NGÀY</h3>
-                <a href="#">Xem ngày cưới</a>
-                <a href="#">Xem khai trương</a>
-            </div>
-            <div class="roiter-group">
-                <h3>TIỆN ÍCH</h3>
-                <a href="/get-time">Giờ hiện tại</a>
-                <a href="/do-nha">Độ Nhà</a>
-                <a href="https://baomoi.com" target="_blank">Báo Mới</a>
-            </div>
+            <div class="roiter-group"><h3>QUẺ DỊCH</h3><a href="#">Lập quẻ</a><a href="#">Giải nghĩa</a></div>
+            <div class="roiter-group"><h3>XEM NGÀY</h3><a href="#">Xem ngày cưới</a><a href="#">Xem khai trương</a></div>
+            <div class="roiter-group"><h3>TIỆN ÍCH</h3><a href="/get-time">Giờ hiện tại</a><a href="/do-nha">Độ Nhà</a><a href="https://baomoi.com" target="_blank">Báo Mới</a></div>
+            <div class="roiter-group"><h3>GPT HỖ TRỢ</h3><a href="/tra-loi-khach">Trả lời khách hàng</a></div>
         </div>
-
-        <!-- Ô 4: Nội dung hiển thị -->
         <div class="cell cell-content">
             <p>Chào mừng bạn đến với hệ thống Huyền học Xuân Trường.</p>
             <p>Tại đây bạn có thể tra cứu ngày tốt, lập quẻ, xem phong thủy nhà cửa và nhiều tiện ích khác.</p>
