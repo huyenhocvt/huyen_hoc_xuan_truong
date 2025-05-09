@@ -1,4 +1,7 @@
 flask
-reportlab
+openai
+pytesseract
+Pillow
 pandas
+reportlab
 openpyxl
