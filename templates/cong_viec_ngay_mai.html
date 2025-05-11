@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CÔNG VIỆC NGÀY MAI</title>
+    <style>
+        html, body {
+            font-size: 18.67px;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            box-sizing: border-box;
+        }
+        .grid-container { display: flex; flex-direction: column; height: 100vh; }
+        .grid-top, .grid-bottom { display: flex; width: 100%; }
+        .grid-top .cell-logo { flex: 3; }
+        .grid-top .cell-image { flex: 7; }
+        .grid-bottom .cell-roiter { flex: 3; padding: 10px; }
+        .grid-bottom .cell-content { flex: 7; padding: 10px; }
+        .cell img { width: 100%; height: 100%; object-fit: cover; }
+        .roiter-group h3 { color: red; font-size: 20px; margin: 10px 0; }
+        .roiter-group a { color: red; font-weight: bold; display: block; margin: 5px 0; text-decoration: none; }
+        .roiter-group a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="grid-container">
+        <div class="grid-top">
+            <div class="cell cell-logo"><img src="/static/images/logo.png" alt="Logo"></div>
+            <div class="cell cell-image"><img src="/static/images/hinh_o_2.png" alt="Hình ô 2"></div>
+        </div>
+        <div class="grid-bottom">
+            <div class="cell cell-roiter">
+                <div class="roiter-group"><h3>QUẺ DỊCH</h3><a href="#">Lập quẻ</a><a href="#">Giải nghĩa</a></div>
+                <div class="roiter-group"><h3>XEM NGÀY</h3><a href="#">Xem ngày cưới</a><a href="#">Xem khai trương</a></div>
+                <div class="roiter-group"><h3>TIỆN ÍCH</h3><a href="/get-time">Giờ hiện tại</a><a href="/do-nha">Độ Nhà</a></div>
+                <div class="roiter-group"><h3>GPT HỖ TRỢ</h3><a href="/tra-loi-khach">Trả lời khách hàng</a></div>
+                <div class="roiter-group">
+                    <h3>CÔNG VIỆC</h3>
+                    <a href="/lap-cong-viec">Lập công việc</a>
+                    <a href="/cong-viec-gap">Công việc gấp</a>
+                    <a href="/cong-viec-ngay-mai">Công việc ngày mai</a>
+                    <a href="/toan-bo-cong-viec">Toàn bộ công việc</a>
+                </div>
+            </div>
+            <div class="cell cell-content">
+                <h2>CÔNG VIỆC NGÀY MAI</h2>
+                <ol>
+                    {% for dong in list_cong_viec %}
+                        <li>{{ dong }}</li>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

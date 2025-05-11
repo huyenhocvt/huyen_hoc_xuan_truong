@@ -5,11 +5,44 @@
     <title>Huyền học Xuân Trường</title>
     <style>
         html, body {
+    font-size: 18.67px; /* tương đương 14pt */
+    box-sizing: border-box;
+
             margin: 0;
             padding: 0;
             height: 100%;
         }
-        .grid-container {
+        
+.grid-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+}
+.grid-top, .grid-bottom {
+    display: flex;
+    width: 100%;
+}
+.grid-top .cell-logo {
+    flex: 3;
+}
+.grid-top .cell-image {
+    flex: 7;
+}
+.grid-bottom .cell-roiter {
+    flex: 3;
+    padding: 10px;
+}
+.grid-bottom .cell-content {
+    flex: 7;
+    padding: 10px;
+}
+.cell img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
             display: grid;
             grid-template-columns: 1fr 2fr;
             grid-template-rows: 1fr 2fr;
@@ -54,6 +87,12 @@
 </head>
 <body>
     <div class="grid-container">
+        <div class="grid-top">
+            <div class="cell cell-logo"><img src="/static/images/logo.png" alt="Logo"></div>
+            <div class="cell cell-image"><img src="/static/images/hinh_o_2.png" alt="Hình ô 2"></div>
+        </div>
+        <div class="grid-bottom">
+            <div class="cell cell-roiter">
         <div class="cell cell-logo"><img src="/static/images/logo.png" alt="Logo"></div>
         <div class="cell cell-image"><img src="/static/images/hinh_o_2.png" alt="Hình ô 2"></div>
         <div class="cell cell-roiter">
@@ -61,8 +100,7 @@
             <div class="roiter-group"><h3>XEM NGÀY</h3><a href="#">Xem ngày cưới</a><a href="#">Xem khai trương</a></div>
             <div class="roiter-group"><h3>TIỆN ÍCH</h3><a href="/get-time">Giờ hiện tại</a><a href="/do-nha">Độ Nhà</a><a href="https://baomoi.com" target="_blank">Báo Mới</a></div>
             <div class="roiter-group"><h3>GPT HỖ TRỢ</h3><a href="/tra-loi-khach">Trả lời khách hàng</a></div>
-        </div>
-        <div class="cell cell-content">
+        </div></div><div class="cell cell-content">
             <p>Chào mừng bạn đến với hệ thống Huyền học Xuân Trường.</p>
             <p>Tại đây bạn có thể tra cứu ngày tốt, lập quẻ, xem phong thủy nhà cửa và nhiều tiện ích khác.</p>
         </div>
