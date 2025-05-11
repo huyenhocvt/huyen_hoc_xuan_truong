@@ -1,31 +1,32 @@
-import os
 import json
-from google.oauth2 import service_account
 from googleapiclient.discovery import build
+from google.oauth2 import service_account
 
-def get_sheets_service():
-    json_str = os.getenv("GOOGLE_APPLICATION_CREDENTIALS_JSON")
-    if not json_str:
-        raise ValueError("Thiếu biến môi trường GOOGLE_APPLICATION_CREDENTIALS_JSON")
-    creds_info = json.loads(json_str)
-    creds = service_account.Credentials.from_service_account_info(creds_info)
+def get_service():
+    creds = service_account.Credentials.from_service_account_file(
+        "huyen-hoc-xuan-truong-65735531de1c.json",
+        scopes=["https://www.googleapis.com/auth/spreadsheets"]
+    )
     return build("sheets", "v4", credentials=creds)
 
-def read_sheet(spreadsheet_id, range_name):
-    service = get_sheets_service()
-    sheet = service.spreadsheets()
-    result = sheet.values().get(spreadsheetId=spreadsheet_id, range=range_name).execute()
-    return result.get("values", [])
+def load_sheet_id(alias):
+    with open("data/sheet_ids.json", "r") as f:
+        sheet_ids = json.load(f)
+    return sheet_ids.get(alias)
 
-def append_to_sheet(spreadsheet_id, range_name, values):
-    service = get_sheets_service()
-    body = {"values": values}
-    sheet = service.spreadsheets()
-    result = sheet.values().append(
-        spreadsheetId=spreadsheet_id,
+def read_sheet(alias, range_name):
+    sheet_id = load_sheet_id(alias)
+    return get_service().spreadsheets().values().get(
+        spreadsheetId=sheet_id,
+        range=range_name
+    ).execute().get("values", [])
+
+def append_to_sheet(alias, range_name, values):
+    sheet_id = load_sheet_id(alias)
+    return get_service().spreadsheets().values().append(
+        spreadsheetId=sheet_id,
         range=range_name,
         valueInputOption="USER_ENTERED",
         insertDataOption="INSERT_ROWS",
-        body=body
+        body={"values": values}
     ).execute()
-    return result
