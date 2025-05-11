@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "huyen-hoc-xuan-truong",
+  "private_key_id": "65735531de1c043e673fafd86e7fa8de3818526f",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDY9aQlFtkHUWSW\nFNaH6DyiY5mTPPIwRzVJ6/pdAFmITRd0wXWr6OOz/BSoF3Rmo5YBNyTm755ONisv\nP4xEzwqP0UMrTvKWoba3sPv06fMTnrhkWz3VFCUPYyri44qHvmgi8OrCtx/aproW\nS6MLk2n3AX2OJOOViL6XzMteGUvZCyu8po7WzirEinefiOsqij2vcWu6yocn9Dh2\nbjkqWBCeFhDdYYq/fXGH49qM6d5raMO68+Q3mOtmRUmix4AN9K6V1A3pZwSEcu/b\nIQIUpCNrcuhIBegQ4NKKfEzUEV5LRd66FDlQUNjBgJLWZgbUlBpjCmUt4WfrgHCv\n3DA/3J3fAgMBAAECggEACMiFBoAIIDziJWtJi2389Ray0xxOsmKnnHWtCJJ+OBTl\njrNS+AyGb1+/VwDAFHRUmyRS3ks0GEwmxRO9silu7tyUwLjs/D58FFqvZekKD1ty\ncT76YAPKmPa1opgooGSLzbeoIWLi1hTAMtfeuBYV3ks//H8E0aXGutmDytbw/vkw\nN1012B2ZYaGrPIwYEm097hbjL6FCIC3TbbfVNsppQowjUMsVVjDppPXdJfjUas7G\n58kpOzAdpFzCw6Z+hRt8/2eULqNlbJ0KAOWUVBs1e4Nw2mZVkoj8JDt00die6asw\nGXTnYPxXytBV8Vv+xMiMvIQoFf0hTntZgBRyXhJ5TQKBgQDvUMGbWb+UXBYkmhtC\n0dZoAiCLJBNiMzWuoHQO/pfti4C490ZUvNUqwS7HmGVe8FXV4A5X/nq4yCLoi5Tr\nHExnylQLX3c12yL2r1OTzOj2dZY1UGlrKZeAfshgR9SouHpeI2ogmfEml0ylzpXm\n861v2+zjYlmynBubqRmrp6cb2wKBgQDoFeHHcTXf7RKss9TfaEFM8/qroYcJSTVi\nwPc6dy0l5A25116QP7XhknEiuxOudRbIv8sHIcAW8ZcR4dSiRAJrNqzeYgf82KS+\nRWVk+7oOtLUm1UaE9O8aUZlqtZ7QJOajT3jCMGDPmESLn2cBCia7iRqFqBkWftGo\nIke9z3bHTQKBgC1qQOOPW5j3BMi7ahL7KVohlTVyii8nkrdqAbxaulA9Ghd/7Zvl\nHfr4ID2GgS5MI63r0C0IwRdR+7Xvzzny69kCf4KNAl15EaCI0y6IQ2mKFRBXCzpn\n8TVUWghTeVrvb2FwDRLUw/vT2Jraon3qnm5M6R6ZqnYHxAF9TL7TmRXjAoGBAMOZ\nfZobne5F3hFT1rsbIL38em2gSzDWVHoQa80ImDJxC+huzTIBoAam51cAGExWPoee\nrTwrg7tSjaHylMTVULyPbg5WzKia5e2+iwAa7+po/qvl3/M6gzHJR+WZgGmoUAGf\nfwUaxNzxVgPeqm9D4PT5TjMLQ2mkJIrxqUkdytuZAoGANupgeb88ylk5+K61kaMo\nSQy0nkv9pLPDvwoovPz8B1oF67s1AweQYmYzDl+DkmWJsLsYKgbee1d9/Njwh6Ic\nuh4WHuiXAz/2b9ckOVySYczqaSblFDZyhnJ0xtAIN73YHLkQQX4Ll+l92QObaMGl\nXa6eUXbJHz0YnZLlKUAfB5A=\n-----END PRIVATE KEY-----\n",
+  "client_email": "huyenhocxt@huyen-hoc-xuan-truong.iam.gserviceaccount.com",
+  "client_id": "116842566839043655883",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/huyenhocxt%40huyen-hoc-xuan-truong.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
