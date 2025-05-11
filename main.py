@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, request, redirect
 from utils.google_sheets import read_sheet, append_to_sheet
 from utils.time_helper import get_current_time_str, get_today_date, get_tomorrow_date
