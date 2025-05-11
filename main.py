@@ -55,37 +55,6 @@ def tra_loi_khach():
     output_list = [s.strip() for s in response_text.split("\n") if s.strip()]
     return render_template("tra_loi_khach.html", output=output_list)
 
-
-from google.oauth2 import service_account
-from googleapiclient.discovery import build
-import io
-import pandas as pd
-from googleapiclient.http import MediaIoBaseDownload
-from flask import send_file
-
-# Load credentials from JSON
-SERVICE_ACCOUNT_FILE = "huyen-hoc-xuan-truong-65735531de1c.json"
-SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
-creds = service_account.Credentials.from_service_account_file(
-    SERVICE_ACCOUNT_FILE, scopes=SCOPES)
-
-drive_service = build('drive', 'v3', credentials=creds)
-
-@app.route('/doc-drive')
-def doc_drive():
-    file_id = 'YOUR_SPREADSHEET_FILE_ID'  # <-- Thay bằng ID file thực tế
-    request_drive = drive_service.files().get_media(fileId=file_id)
-    fh = io.BytesIO()
-    downloader = MediaIoBaseDownload(fh, request_drive)
-    done = False
-    while not done:
-        status, done = downloader.next_chunk()
-    fh.seek(0)
-
-    df = pd.read_excel(fh)
-    return df.to_html(classes="table table-bordered", index=False)
-
-
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
