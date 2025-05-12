@@ -1,8 +1,7 @@
 
 from flask import Flask, render_template, request
 from utils.google_sheets import append_row_cong_viec
-from time_helper import get_vietnam_time
-
+from utils.time_helper import get_vietnam_time
 app = Flask(__name__)
 
 @app.route("/")
