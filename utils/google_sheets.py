@@ -39,3 +39,14 @@ def append_to_sheet(spreadsheet_id, range_name, values):
         insertDataOption="INSERT_ROWS",
         body=body
     ).execute()
+
+# ✅ Thêm hàm cụ thể cho ghi công việc
+def append_row_cong_viec(row_data):
+    try:
+        sheet_id = "1kcbVll1grO42t4-NV9YPQFjlGG9RxDelXUgOMntCz_Y"
+        range_name = "ngay_setup!A2"
+        append_to_sheet(sheet_id, range_name, [row_data])
+        return True
+    except Exception as e:
+        print("❌ Lỗi append_row_cong_viec:", e)
+        return False
