@@ -27,7 +27,7 @@ def try_append_to_sheet():
         body = {"values": values}
         sheet.values().append(
             spreadsheetId="1kcbVll1grO42t4-NV9YPQFjlGG9RxDelXUgOMntCz_Y",
-            range="Sheet1!A2",
+            range="ngay_setup!A2",
             valueInputOption="RAW",
             insertDataOption="INSERT_ROWS",
             body=body
