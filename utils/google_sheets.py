@@ -4,7 +4,7 @@ from google.oauth2 import service_account
 
 def get_service():
     creds = service_account.Credentials.from_service_account_file(
-        "huyen-hoc-xuan-truong-65735531de1c.json",
+        "C:\\Users\\Asus\\Dropbox\\PC (2)\\Documents\\huyen-hoc-xuan-truong-65735531de1c.json",
         scopes=["https://www.googleapis.com/auth/spreadsheets"]
     )
     return build("sheets", "v4", credentials=creds)
