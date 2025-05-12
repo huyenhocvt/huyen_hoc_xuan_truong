@@ -4,8 +4,8 @@ from utils.time_helper import get_current_time_str
 
 lap_cong_viec_bp = Blueprint("lap_cong_viec", __name__, url_prefix="/lap-cong-viec")
 
-CONG_VIEC_SHEET_ID = "1KfVDpk6mXT3kisWTZDUMjtlH9xIj5elG"
-DANH_SACH_SHEET_ID = "17NAAz052lT0wHPT2A8fU_qWOzMZxNV_C"
+CONG_VIEC_SHEET_ID = "1kcbVll1grO42t4-NV9YPQFjlGG9RxDelXUgOMntCz_Y"
+DANH_SACH_SHEET_ID = "1rKdIcZ2e0Qp7eRCVt6y9-sibEs9t5KmkvH1LzU3WYT8"
 
 @lap_cong_viec_bp.route("/", methods=["GET", "POST"])
 def lap_cong_viec():
@@ -37,8 +37,9 @@ def lap_cong_viec():
         try:
             append_to_sheet(CONG_VIEC_SHEET_ID, "Sheet1!A2", row)
         except:
-            pass  # Không crash
+            pass
 
-        return redirect("/lap-cong-viec")
+        return redirect(f"/lap-cong-viec/?success=1&ten={noi_dung}")
 
-    return render_template("lap_cong_viec.html", ds_nguoi=ds_nguoi, ds_loai=ds_loai)
+    ten_vua_ghi = request.args.get("ten")
+    return render_template("lap_cong_viec.html", ds_nguoi=ds_nguoi, ds_loai=ds_loai, ten_vua_ghi=ten_vua_ghi)

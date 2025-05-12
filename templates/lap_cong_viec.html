@@ -6,6 +6,13 @@
 </head>
 <body>
     <h2>LẬP CÔNG VIỆC</h2>
+
+    {% if ten_vua_ghi %}
+        <p style="color: green; font-weight: bold;">
+            ✅ Công việc "{{ ten_vua_ghi }}" đã được ghi thành công!
+        </p>
+    {% endif %}
+
     <form method="POST" action="/lap-cong-viec/">
         <label>Nội dung:</label><br>
         <input type="text" name="noi_dung" required><br><br>
