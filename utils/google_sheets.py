@@ -1,25 +1,31 @@
 import os
 import json
-import gspread
-from google.oauth2.service_account import Credentials
+from google.oauth2 import service_account
+from googleapiclient.discovery import build
 
-# Ủy quyền sử dụng Google Sheets
-def get_gspread_client():
-    scopes = [
-        "https://www.googleapis.com/auth/spreadsheets",
-        "https://www.googleapis.com/auth/drive"
-    ]
-    service_account_info = json.loads(os.environ.get("GOOGLE_SERVICE_ACCOUNT", "{}"))
-    credentials = Credentials.from_service_account_info(service_account_info, scopes=scopes)
-    return gspread.authorize(credentials)
+def get_service():
+    creds_info = json.loads(os.environ["GOOGLE_APPLICATION_CREDENTIALS_JSON"])
+    creds = service_account.Credentials.from_service_account_info(
+        creds_info,
+        scopes=["https://www.googleapis.com/auth/spreadsheets"]
+    )
+    return build("sheets", "v4", credentials=creds)
 
 def append_row_cong_viec(row_data):
     try:
-        gc = get_gspread_client()
-        sheet = gc.open("cong_viec_gsheet")
-        worksheet = sheet.worksheet("ngay_setup")  # Tên tab thực tế
-        worksheet.append_row(row_data)
+        sheet_id = "1kcbVll1grO42t4-NV9YPQFjlGG9RxDelXUgOMntCz_Y"
+        range_name = "'ngay_setup'!A2"
+        service = get_service()
+        sheet = service.spreadsheets()
+        body = {"values": [row_data]}
+        sheet.values().append(
+            spreadsheetId=sheet_id,
+            range=range_name,
+            valueInputOption="RAW",
+            insertDataOption="INSERT_ROWS",
+            body=body
+        ).execute()
         return True
     except Exception as e:
-        print("❌ Lỗi append_row_cong_viec:", e)
+        print("❌ Lỗi ghi sheet:", e)
         return False
