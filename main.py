@@ -8,7 +8,7 @@ from roiter.cong_viec_ngay_mai import cong_viec_ngay_mai_bp
 from roiter.toan_bo_cong_viec import toan_bo_cong_viec_bp
 from roiter.them_nguoi_moi import them_nguoi_moi_bp
 
-# Test ghi Google Sheet khi khởi động
+# Ghi test vào Google Sheet khi server khởi động
 def try_append_to_sheet():
     from datetime import datetime
     from google.oauth2 import service_account
