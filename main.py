@@ -6,3 +6,5 @@ from roiter.toan_bo_cong_viec import *
 
 # TODO: Tùy vào giao diện CLI/web, bạn có thể gọi từng roiter tại đây
 print("Đã sẵn sàng xử lý các roiter công việc")
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
