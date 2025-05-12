@@ -7,20 +7,24 @@ SHEET_ID = "1KfVDpk6mXT3kisWTZDUMjtlH9xIj5elG"
 
 @toan_bo_cong_viec_bp.route("/")
 def toan_bo_cong_viec():
-    data = read_sheet(SHEET_ID, "Sheet1!A2:F")
     ket_qua = []
+    try:
+        data = read_sheet(SHEET_ID, "Sheet1!A2:F")
 
-    for row in data:
-        if len(row) < 3:
-            continue
-        noi_dung = row[1]
-        han = row[2]
-        try:
-            han_date = datetime.strptime(han, "%H:%M - %d/%m/%Y")
-            ket_qua.append((han_date, f"Tên công việc: {noi_dung} ({han})"))
-        except:
-            continue
+        for row in data:
+            if len(row) < 3:
+                continue
+            noi_dung = row[1]
+            han = row[2]
+            try:
+                han_date = datetime.strptime(han, "%H:%M - %d/%m/%Y")
+                ket_qua.append((han_date, f"Tên công việc: {noi_dung} ({han})"))
+            except:
+                continue
 
-    ket_qua.sort()
-    list_cong_viec = [row[1] for row in ket_qua]
+        ket_qua.sort()
+    except Exception as e:
+        print("LỖI:", e)
+
+    list_cong_viec = [dong[1] for dong in ket_qua]
     return render_template("toan_bo_cong_viec.html", list_cong_viec=list_cong_viec)
