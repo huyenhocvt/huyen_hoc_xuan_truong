@@ -1,51 +1,24 @@
 import os
 import json
-from google.oauth2 import service_account
-from googleapiclient.discovery import build
+import gspread
+from google.oauth2.service_account import Credentials
 
-def get_service():
-    creds_info = json.loads(os.environ["GOOGLE_APPLICATION_CREDENTIALS_JSON"])
-    creds = service_account.Credentials.from_service_account_info(
-        creds_info,
-        scopes=["https://www.googleapis.com/auth/spreadsheets"]
-    )
-    return build("sheets", "v4", credentials=creds)
+# Ủy quyền sử dụng Google Sheets
+def get_gspread_client():
+    scopes = [
+        "https://www.googleapis.com/auth/spreadsheets",
+        "https://www.googleapis.com/auth/drive"
+    ]
+    service_account_info = json.loads(os.environ.get("GOOGLE_SERVICE_ACCOUNT", "{}"))
+    credentials = Credentials.from_service_account_info(service_account_info, scopes=scopes)
+    return gspread.authorize(credentials)
 
-def read_sheet(spreadsheet_id, range_name):
-    service = get_service()
-    sheet = service.spreadsheets()
-    result = sheet.values().get(spreadsheetId=spreadsheet_id, range=range_name).execute()
-    return result.get("values", [])
-
-def write_sheet(spreadsheet_id, range_name, values):
-    service = get_service()
-    sheet = service.spreadsheets()
-    body = {"values": values}
-    sheet.values().update(
-        spreadsheetId=spreadsheet_id,
-        range=range_name,
-        valueInputOption="RAW",
-        body=body
-    ).execute()
-
-def append_to_sheet(spreadsheet_id, range_name, values):
-    service = get_service()
-    sheet = service.spreadsheets()
-    body = {"values": values}
-    sheet.values().append(
-        spreadsheetId=spreadsheet_id,
-        range=range_name,
-        valueInputOption="RAW",
-        insertDataOption="INSERT_ROWS",
-        body=body
-    ).execute()
-
-# ✅ Thêm hàm cụ thể cho ghi công việc
 def append_row_cong_viec(row_data):
     try:
-        sheet_id = "1kcbVll1grO42t4-NV9YPQFjlGG9RxDelXUgOMntCz_Y"
-        range_name = "ngay_setup!A2"
-        append_to_sheet(sheet_id, range_name, [row_data])
+        gc = get_gspread_client()
+        sheet = gc.open("cong_viec_gsheet")
+        worksheet = sheet.worksheet("ngay_setup")  # Tên tab thực tế
+        worksheet.append_row(row_data)
         return True
     except Exception as e:
         print("❌ Lỗi append_row_cong_viec:", e)
