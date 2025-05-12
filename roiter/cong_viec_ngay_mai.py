@@ -1,9 +1,12 @@
+from flask import Blueprint, render_template
 from utils.google_sheets import read_sheet
 from utils.time_helper import get_tomorrow_date
 from datetime import datetime
 
+cong_viec_ngay_mai_bp = Blueprint("cong_viec_ngay_mai", __name__, url_prefix="/cong-viec-ngay-mai")
 SHEET_ID = "1KfVDpk6mXT3kisWTZDUMjtlH9xIj5elG"
 
+@cong_viec_ngay_mai_bp.route("/")
 def cong_viec_ngay_mai():
     data = read_sheet(SHEET_ID, "Sheet1!A2:F")
     tomorrow = get_tomorrow_date()
@@ -21,9 +24,4 @@ def cong_viec_ngay_mai():
         except:
             continue
 
-    if ket_qua:
-        print("CÔNG VIỆC NGÀY MAI")
-        for i, dong in enumerate(ket_qua, 1):
-            print(f"{i}. {dong}")
-    else:
-        print("✅ Ngày mai chưa có công việc.")
+    return render_template("cong_viec_ngay_mai.html", list_cong_viec=ket_qua)
