@@ -10,21 +10,12 @@ def toan_bo_cong_viec():
     ket_qua = []
     try:
         data = read_sheet(SHEET_ID, "Sheet1!A2:F")
-
         for row in data:
-            if len(row) < 3:
-                continue
-            noi_dung = row[1]
-            han = row[2]
-            try:
-                han_date = datetime.strptime(han, "%H:%M - %d/%m/%Y")
-                ket_qua.append((han_date, f"Tên công việc: {noi_dung} ({han})"))
-            except:
-                continue
-
+            if len(row) >= 3:
+                try:
+                    han_date = datetime.strptime(row[2], "%H:%M - %d/%m/%Y")
+                    ket_qua.append((han_date, f"Tên công việc: {row[1]} ({row[2]})"))
+                except: continue
         ket_qua.sort()
-    except Exception as e:
-        print("LỖI:", e)
-
-    list_cong_viec = [dong[1] for dong in ket_qua]
-    return render_template("toan_bo_cong_viec.html", list_cong_viec=list_cong_viec)
+    except: pass
+    return render_template("toan_bo_cong_viec.html", list_cong_viec=[k[1] for k in ket_qua])

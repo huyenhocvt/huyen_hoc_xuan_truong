@@ -9,6 +9,8 @@ def them_nguoi_moi():
     if request.method == "POST":
         ten = request.form.get("nguoi_moi")
         if ten:
-            append_to_sheet(DANH_SACH_SHEET_ID, "Sheet1!A2", [[ten]])
-            return redirect("/lap-cong-viec")
+            try:
+                append_to_sheet(DANH_SACH_SHEET_ID, "Sheet1!A2", [[ten]])
+            except: pass
+        return redirect("/lap-cong-viec")
     return render_template("danh_sach_nguoi.html")
