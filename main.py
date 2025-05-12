@@ -1,54 +1,48 @@
-import os
-import json
-from flask import Flask, render_template
 
-from roiter.lap_cong_viec import lap_cong_viec_bp
-from roiter.cong_viec_gap import cong_viec_gap_bp
-from roiter.cong_viec_ngay_mai import cong_viec_ngay_mai_bp
-from roiter.toan_bo_cong_viec import toan_bo_cong_viec_bp
-from roiter.them_nguoi_moi import them_nguoi_moi_bp
-
-# Ghi test vào Google Sheet khi server khởi động
-def try_append_to_sheet():
-    from datetime import datetime
-    from google.oauth2 import service_account
-    from googleapiclient.discovery import build
-
-    try:
-        creds_info = json.loads(os.environ["GOOGLE_APPLICATION_CREDENTIALS_JSON"])
-        creds = service_account.Credentials.from_service_account_info(
-            creds_info,
-            scopes=["https://www.googleapis.com/auth/spreadsheets"]
-        )
-        service = build("sheets", "v4", credentials=creds)
-        sheet = service.spreadsheets()
-        now = datetime.now().strftime("%H:%M - %d/%m/%Y")
-        values = [[now, "AUTO-TEST", "Test khi khởi động", "GPT", "render", "ghi sheet"]]
-        body = {"values": values}
-        sheet.values().append(
-            spreadsheetId="1kcbVll1grO42t4-NV9YPQFjlGG9RxDelXUgOMntCz_Y",
-            range="Sheet1!A2",
-            valueInputOption="RAW",
-            insertDataOption="INSERT_ROWS",
-            body=body
-        ).execute()
-        print("✅ TEST GHI SHEET THÀNH CÔNG")
-    except Exception as e:
-        print("❌ TEST GHI SHEET THẤT BẠI:", e)
+from flask import Flask, render_template, request
+from google_sheets import append_row_cong_viec
+from time_helper import get_vietnam_time
 
 app = Flask(__name__)
 
-# Đăng ký blueprint
-app.register_blueprint(lap_cong_viec_bp)
-app.register_blueprint(cong_viec_gap_bp)
-app.register_blueprint(cong_viec_ngay_mai_bp)
-app.register_blueprint(toan_bo_cong_viec_bp)
-app.register_blueprint(them_nguoi_moi_bp)
-
 @app.route("/")
-def home():
+def index():
     return render_template("index.html")
 
+@app.route("/lap-cong-viec/", methods=["GET", "POST"])
+def lap_cong_viec():
+    if request.method == "POST":
+        noi_dung = request.form["noi_dung"]
+        han_hoan_thanh = request.form["han_hoan_thanh"]
+        nguoi_thuc_hien = request.form["nguoi_thuc_hien"]
+        loai_viec = request.form["loai_viec"]
+        ghi_chu = request.form["ghi_chu"]
+        ngay_setup = get_vietnam_time()
+
+        success = append_row_cong_viec([
+            ngay_setup,
+            noi_dung,
+            han_hoan_thanh,
+            nguoi_thuc_hien,
+            loai_viec,
+            ghi_chu,
+        ])
+
+        if not success:
+            print("❌ GHI SHEET THẤT BẠI")
+        else:
+            print("✅ GHI SHEET THÀNH CÔNG")
+
+    return render_template("lap_cong_viec.html")
+
 if __name__ == "__main__":
-    try_append_to_sheet()
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+    print("⚙ TEST GHI SHEET...")
+    test = append_row_cong_viec([
+        get_vietnam_time(), "TEST", "2025-05-13", "Người test", "Test", "Nội dung test"
+    ])
+    if not test:
+        print("❌ TEST GHI SHEET THẤT BẠI")
+    else:
+        print("✅ TEST GHI SHEET OK")
+
+    app.run(debug=False, host="0.0.0.0", port=10000)
