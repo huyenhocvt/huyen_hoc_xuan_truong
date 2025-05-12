@@ -3,77 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>LẬP CÔNG VIỆC</title>
-    <style>
-        html, body {{
-            font-size: 18.67px;
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: Arial, sans-serif;
-        }}
-        .grid-container {{ display: flex; flex-direction: column; height: 100vh; }}
-        .grid-top, .grid-bottom {{ display: flex; width: 100%; }}
-        .grid-top .cell-logo {{ flex: 3; }}
-        .grid-top .cell-image {{ flex: 7; }}
-        .grid-bottom .cell-roiter {{ flex: 3; padding: 10px; }}
-        .grid-bottom .cell-content {{ flex: 7; padding: 10px; }}
-        .cell img {{ width: 100%; height: 100%; object-fit: cover; }}
-        form label {{ display: block; margin-top: 10px; font-weight: bold; }}
-        form input, form select {{ width: 100%; padding: 5px; margin-top: 5px; }}
-        .btn-group {{ margin-top: 15px; }}
-    </style>
 </head>
 <body>
-    <div class="grid-container">
-        <div class="grid-top">
-            <div class="cell cell-logo"><img src="/static/images/logo.png" alt="Logo"></div>
-            <div class="cell cell-image"><img src="/static/images/hinh_o_2.png" alt="Hình ô 2"></div>
-        </div>
-        <div class="grid-bottom">
-            <div class="cell cell-roiter">
-                <div class="roiter-group"><h3>CÔNG VIỆC</h3>
-                    <a href="/lap-cong-viec">Lập công việc</a>
-                    <a href="/cong-viec-gap">Công việc gấp</a>
-                    <a href="/cong-viec-ngay-mai">Công việc ngày mai</a>
-                    <a href="/toan-bo-cong-viec">Toàn bộ công việc</a>
-                </div>
-            </div>
-            <div class="cell cell-content">
-                <h2>LẬP CÔNG VIỆC</h2>
-                <form method="POST" action="/lap-cong-viec">
-                    <label>Nội dung:</label>
-                    <input type="text" name="noi_dung" required>
-                    
-                    <label>Hạn hoàn thành:</label>
-                    <input type="datetime-local" name="han_hoan_thanh" required>
-                    
-                    <label>Người thực hiện:</label>
-                    <select name="nguoi_thuc_hien">
-                        {% for ten in ds_nguoi %}
-                            <option value="{{ ten }}">{{ ten }}</option>
-                        {% endfor %}
-                    </select>
-                    <a href="/them-nguoi-moi">+ Thêm người mới</a>
+    <h2>LẬP CÔNG VIỆC</h2>
+    <form method="POST" action="/lap-cong-viec/">
+        <label>Nội dung:</label><br>
+        <input type="text" name="noi_dung" required><br><br>
 
-                    <label>Loại việc:</label>
-                    <select name="loai_viec">
-                        {% for loai in ds_loai %}
-                            <option value="{{ loai }}">{{ loai }}</option>
-                        {% endfor %}
-                    </select>
+        <label>Hạn hoàn thành:</label><br>
+        <input type="datetime-local" name="han_hoan_thanh" required><br><br>
 
-                    <label>Ghi chú:</label>
-                    <select name="ghi_chu">
-                        <option value="">---</option>
-                        <option value="quan tâm">Quan tâm</option>
-                    </select>
+        <label>Người thực hiện:</label><br>
+        <select name="nguoi_thuc_hien">
+            {% for ten in ds_nguoi %}
+                <option value="{{ ten }}">{{ ten }}</option>
+            {% endfor %}
+        </select>
+        <a href="/them-nguoi-moi">+ Thêm người mới</a><br><br>
 
-                    <div class="btn-group">
-                        <button type="submit">Gửi</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+        <label>Loại việc:</label><br>
+        <select name="loai_viec">
+            {% for loai in ds_loai %}
+                <option value="{{ loai }}">{{ loai }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label>Ghi chú:</label><br>
+        <input type="text" name="ghi_chu"><br><br>
+
+        <button type="submit">Gửi</button>
+    </form>
 </body>
 </html>
