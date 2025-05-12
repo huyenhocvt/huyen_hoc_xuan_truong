@@ -27,3 +27,15 @@ def write_sheet(spreadsheet_id, range_name, values):
         valueInputOption="RAW",
         body=body
     ).execute()
+
+def append_to_sheet(spreadsheet_id, range_name, values):
+    service = get_service()
+    sheet = service.spreadsheets()
+    body = {"values": values}
+    sheet.values().append(
+        spreadsheetId=spreadsheet_id,
+        range=range_name,
+        valueInputOption="RAW",
+        insertDataOption="INSERT_ROWS",
+        body=body
+    ).execute()
