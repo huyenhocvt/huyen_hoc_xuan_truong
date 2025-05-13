@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Kết quả nhận dạng seri tiền</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4; }
+        .result-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        img {
+            max-width: 100%;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 8px 15px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="result-box">
+        <h2>Kết quả nhận dạng</h2>
+        <img src="/static/images/seri_sample.jpg" alt="Ảnh đã xử lý">
+        <p><strong>Seri:</strong> {{ seri_result }}</p>
+        <button onclick="navigator.clipboard.writeText('{{ seri_result }}'); alert('Đã copy seri tiền')">Copy seri tiền</button>
+        <button onclick="location.href='/nhan-seri-tien'">Thực hiện lại</button>
+        <button onclick="location.href='/index'">Về trang chủ</button>
+    </div>
+</body>
+</html>

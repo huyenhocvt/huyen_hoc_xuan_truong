@@ -2,56 +2,56 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Nhận dạng seri tiền</title>
+    <title>Nhận dạng seri tiền - Nhập</title>
     <style>
         body { font-family: Arial, sans-serif; padding: 20px; background-color: #f9f9f9; }
         .box { border: 2px dashed #ccc; padding: 15px; min-height: 100px; background: white; }
         .box h3 { margin-top: 0; }
         .preview img { max-width: 100%; margin-top: 10px; border: 1px solid #ccc; }
-        .result { margin-top: 20px; }
         button { margin-top: 10px; padding: 8px 15px; }
     </style>
 </head>
 <body>
     <h2>Nhận dạng seri tiền</h2>
+    <form method="POST" action="/nhan-seri-tien" enctype="multipart/form-data">
+        <label><strong>Chọn ảnh từ máy:</strong></label><br>
+        <input type="file" name="file_upload" id="file_upload" accept="image/*"><br>
+        <div class="preview" id="filePreview"></div>
 
-    <form method="POST" action="/process-seri-tien">
-        <div class="box" id="dropZone">
-            <h3>Dán ảnh vào đây (Ctrl + V)</h3>
-            <div class="preview" id="previewArea"></div>
-        </div>
+        <p><strong>Hoặc dán ảnh vào đây (Ctrl+V):</strong></p>
+        <div class="box" id="pasteArea">Dán ảnh vào vùng này để nhận dạng</div>
         <input type="hidden" id="image_data" name="image_data">
 
         <button type="submit">Nhận dạng</button>
         <button type="button" onclick="location.href='/index'">Về trang chủ</button>
     </form>
 
-    <div class="result">
-        <h3>Kết quả nhận dạng</h3>
-        <p><strong>Seri:</strong> {{ seri_result if seri_result else 'Chưa có kết quả' }}</p>
-        <button onclick="copyText('{{ seri_result }}')">Copy seri tiền</button>
-    </div>
-
     <script>
+        document.getElementById('file_upload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('filePreview').innerHTML = '<img src="' + e.target.result + '" alt="Preview">';
+            };
+            reader.readAsDataURL(file);
+        });
+
         window.addEventListener('paste', function(e) {
             const items = e.clipboardData.items;
             for (const item of items) {
                 if (item.type.indexOf('image') !== -1) {
                     const file = item.getAsFile();
                     const reader = new FileReader();
-                    reader.onload = function(evt) {
-                        const base64 = evt.target.result;
-                        document.getElementById('image_data').value = base64;
-                        document.getElementById('previewArea').innerHTML = '<img src="' + base64 + '" alt="Pasted Image">';
+                    reader.onload = function(event) {
+                        const base64Image = event.target.result;
+                        document.getElementById('image_data').value = base64Image;
+                        document.getElementById('pasteArea').innerHTML = '<img src="' + base64Image + '" alt="Pasted Image">';
                     };
                     reader.readAsDataURL(file);
                 }
             }
         });
-
-        function copyText(text) {
-            navigator.clipboard.writeText(text).then(() => alert('Đã copy: ' + text));
-        }
     </script>
 </body>
 </html>
