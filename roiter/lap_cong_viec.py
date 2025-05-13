@@ -1,18 +1,19 @@
+
 from flask import Blueprint, render_template, request, redirect
-from utils.google_sheets import append_to_sheet, read_sheet
+import pandas as pd
+import os
 from utils.time_helper import get_current_time_str
 
 lap_cong_viec_bp = Blueprint("lap_cong_viec", __name__, url_prefix="/lap-cong-viec")
 
-CONG_VIEC_SHEET_ID = "1kcbVll1grO42t4-NV9YPQFjlGG9RxDelXUgOMntCz_Y"
-DANH_SACH_SHEET_ID = "1rKdIcZ2e0Qp7eRCVt6y9-sibEs9t5KmkvH1LzU3WYT8"
+CV_FILE = "data/cong_viec.xlsx"
+DS_FILE = "data/danh_sach.xlsx"
 
 @lap_cong_viec_bp.route("/", methods=["GET", "POST"])
 def lap_cong_viec():
     try:
-        ds_nguoi = [row[0] for row in read_sheet(DANH_SACH_SHEET_ID, "Sheet1!A2:A") if row]
-        if not ds_nguoi:
-            ds_nguoi = ["Không có người nào"]
+        df_ds = pd.read_excel(DS_FILE)
+        ds_nguoi = df_ds["Tên"].tolist()
     except:
         ds_nguoi = ["Không có dữ liệu"]
 
@@ -25,19 +26,23 @@ def lap_cong_viec():
         loai_viec = request.form.get("loai_viec", "")
         ghi_chu = request.form.get("ghi_chu", "")
 
-        row = [[
-            get_current_time_str(),
-            noi_dung,
-            han,
-            nguoi_thuc_hien,
-            loai_viec,
-            ghi_chu
-        ]]
+        new_row = {
+            "Thời gian tạo": get_current_time_str(),
+            "Nội dung": noi_dung,
+            "Hạn hoàn thành": han,
+            "Người thực hiện": nguoi_thuc_hien,
+            "Loại công việc": loai_viec,
+            "Ghi chú": ghi_chu
+        }
 
         try:
-            append_to_sheet(CONG_VIEC_SHEET_ID, "Sheet1!A2", row)
+            df_cv = pd.read_excel(CV_FILE)
+            df_cv = pd.concat([df_cv, pd.DataFrame([new_row])], ignore_index=True)
         except:
-            pass
+            df_cv = pd.DataFrame([new_row])
+
+        os.makedirs("data", exist_ok=True)
+        df_cv.to_excel(CV_FILE, index=False)
 
         return redirect(f"/lap-cong-viec/?success=1&ten={noi_dung}")
 
