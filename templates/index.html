@@ -17,22 +17,12 @@
             height: 100vh;
         }
         .top {
-            height: 20vh;
-            position: relative;
-            background-image: url('/static/images/baner.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            width: 100%;
         }
-        .top .title-overlay {
-            position: absolute;
-            top: 10%;
-            left: 5%;
-            color: red;
-            font-weight: bold;
-            font-size: 2.5vh;
-            line-height: 1.2;
-            text-shadow: 1px 1px 2px white;
+        .top img {
+            width: 100%;
+            height: auto;
+            display: block;
         }
         .bottom {
             flex: 1;
@@ -72,9 +62,7 @@
 <body>
     <div class="container">
         <div class="top">
-            <div class="title-overlay">
-                HUYỀN HỌC<br>XUÂN TRƯỜNG
-            </div>
+            <img src="/static/images/baner.jpg" alt="Banner">
         </div>
         <div class="bottom">
             <div class="left">
