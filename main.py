@@ -1,15 +1,21 @@
 
-from flask import Flask
+from flask import Flask, render_template_string
 from roiter.lap_cong_viec import lap_cong_viec_bp
 
 app = Flask(__name__)
-app.secret_key = "congviec_secret_2025"  # để dùng session
+app.secret_key = "lapcongviec_2025"
 
 app.register_blueprint(lap_cong_viec_bp)
 
 @app.route("/")
 def index():
-    return '<h2><a href="/lap-cong-viec/">Lập công việc</a></h2>'
+    return render_template_string(""" 
+    <h2>CHỨC NĂNG</h2>
+    <div class='roiter-group'>
+        <h3>CÔNG VIỆC</h3>
+        <a href="/lap-cong-viec/">Lập công việc</a>
+    </div>
+    """)
 
 if __name__ == "__main__":
     import os

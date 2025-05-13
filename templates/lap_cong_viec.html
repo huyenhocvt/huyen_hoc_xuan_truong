@@ -23,7 +23,7 @@
         <input type="text" name="noi_dung" required><br><br>
 
         <label>Hạn hoàn thành:</label><br>
-        <input type="datetime-local" name="han_hoan_thanh" required><br><br>
+        <input type="text" name="an_hoan_thanh" required><br><br>
 
         <label>Người thực hiện:</label><br>
         <input type="text" name="nguoi_thuc_hien" required><br><br>
@@ -42,17 +42,23 @@
     <table>
         <thead>
             <tr>
-                {% for col in data[0].keys() %}
-                    <th>{{ col }}</th>
-                {% endfor %}
+                <th>ngay_setup</th>
+                <th>noi_dung</th>
+                <th>an_hoan_thanh</th>
+                <th>nguoi_thuc_hien</th>
+                <th>loai_viec</th>
+                <th>ghi_chu</th>
             </tr>
         </thead>
         <tbody>
             {% for row in data %}
                 <tr>
-                    {% for value in row.values() %}
-                        <td>{{ value }}</td>
-                    {% endfor %}
+                    <td>{{ row["ngay_setup"] }}</td>
+                    <td>{{ row["noi_dung"] }}</td>
+                    <td>{{ row["an_hoan_thanh"] }}</td>
+                    <td>{{ row["nguoi_thuc_hien"] }}</td>
+                    <td>{{ row["loai_viec"] }}</td>
+                    <td>{{ row["ghi_chu"] }}</td>
                 </tr>
             {% endfor %}
         </tbody>
