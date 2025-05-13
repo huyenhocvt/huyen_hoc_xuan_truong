@@ -1,13 +1,13 @@
-
-from flask import Flask, send_from_directory
-from roiter.lap_cong_viec import lap_cong_viec_bp
-
-app = Flask(__name__)
-app.register_blueprint(lap_cong_viec_bp)
-
-@app.route("/tai-cong-viec")
-def tai_cong_viec():
-    return send_from_directory("data", "cong_viec.xlsx", as_attachment=True)
+from utils.google_sheets import append_row_cong_viec
 
 if __name__ == "__main__":
-    app.run()
+    test_data = [
+        "05:55 – 13/05/2025",
+        "Test ghi dữ liệu",
+        "20/05/2025",
+        "Xuân Trường",
+        "Test",
+        "Dòng kiểm tra"
+    ]
+    success = append_row_cong_viec(test_data)
+    print("✅ Ghi thành công!" if success else "❌ Ghi thất bại!")

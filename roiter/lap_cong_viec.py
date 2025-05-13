@@ -2,7 +2,7 @@
 from flask import Blueprint, render_template, request, redirect
 import pandas as pd
 import os
-from utils.time_helper import get_current_time_str
+from datetime import datetime
 
 lap_cong_viec_bp = Blueprint("lap_cong_viec", __name__, url_prefix="/lap-cong-viec")
 
@@ -48,3 +48,7 @@ def lap_cong_viec():
 
     ten_vua_ghi = request.args.get("ten")
     return render_template("lap_cong_viec.html", ds_nguoi=ds_nguoi, ds_loai=ds_loai, ten_vua_ghi=ten_vua_ghi)
+
+
+def get_current_time_str():
+    return datetime.now().strftime("%H:%M – %d/%m/%Y")
