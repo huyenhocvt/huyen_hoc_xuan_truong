@@ -1,15 +1,26 @@
 from flask import Blueprint, render_template, request, session
 from datetime import datetime, timedelta
+from openpyxl import load_workbook
 
 lap_cong_viec_bp = Blueprint("lap_cong_viec", __name__, url_prefix="/lap-cong-viec")
+
+def get_ten_tu_excel():
+    ten_list = []
+    try:
+        wb = load_workbook("data/danh_sach.xlsx")
+        ws = wb.active
+        for row in ws.iter_rows(min_row=2, values_only=True):
+            ten = row[0]  # cột A là 'ten'
+            if ten:
+                ten_list.append(ten)
+    except Exception as e:
+        print("Lỗi đọc danh_sach.xlsx:", e)
+    return ten_list
 
 @lap_cong_viec_bp.route("/", methods=["GET", "POST"])
 def lap_cong_viec():
     if request.method == "GET":
         session["cong_viec_list"] = []
-
-    if "danh_sach_nguoi" not in session:
-        session["danh_sach_nguoi"] = []
 
     if request.method == "POST":
         gmt7_now = datetime.utcnow() + timedelta(hours=7)
@@ -36,7 +47,7 @@ def lap_cong_viec():
         session["cong_viec_list"].append(row)
         session.modified = True
 
-    danh_sach_nguoi = [row.get("ten") for row in session.get("danh_sach_nguoi", [])]
+    danh_sach_nguoi = get_ten_tu_excel()
 
     return render_template(
         "lap_cong_viec_day_du.html",
