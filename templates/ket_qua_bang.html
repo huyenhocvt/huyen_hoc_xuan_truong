@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Kết quả nhận bảng</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f0f0f0; }
+        .box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        img { max-width: 100%; border: 1px solid #ccc; margin-bottom: 15px; }
+        a.button {
+            display: inline-block;
+            padding: 8px 15px;
+            background: #007BFF;
+            color: white;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Kết quả nhận bảng</h2>
+        <img src="/static/images/bang_sample.jpg" alt="Ảnh bảng">
+        <p>{{ bang_result }}</p>
+        <a href="/static/outputs/nhan_bang.xlsx" class="button" download>Tải file Excel</a>
+        <a href="/nhan-bang" class="button">Làm lại</a>
+        <a href="/index" class="button">Trang chủ</a>
+    </div>
+</body>
+</html>

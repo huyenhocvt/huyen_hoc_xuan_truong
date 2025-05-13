@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Nhận bảng - Nhập</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f9f9f9; }
+        .box { border: 2px dashed #ccc; padding: 15px; min-height: 100px; background: white; }
+        .preview img { max-width: 100%; margin-top: 10px; border: 1px solid #ccc; }
+        button { margin-top: 10px; padding: 8px 15px; }
+    </style>
+</head>
+<body>
+    <h2>Nhận dạng bảng từ ảnh hoặc PDF</h2>
+    <form method="POST" action="/nhan-bang" enctype="multipart/form-data">
+        <input type="file" name="file_upload" id="file_upload" accept="image/*,.pdf"><br>
+        <div class="preview" id="filePreview"></div>
+
+        <p><strong>Hoặc dán ảnh vào đây (Ctrl+V):</strong></p>
+        <div class="box" id="pasteArea">Dán ảnh bảng vào vùng này</div>
+        <input type="hidden" id="image_data" name="image_data">
+
+        <button type="submit">Xử lý</button>
+        <button type="button" onclick="location.href='/index'">Về trang chủ</button>
+    </form>
+
+    <script>
+        document.getElementById('file_upload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file || file.type === 'application/pdf') return;
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                document.getElementById('filePreview').innerHTML = '<img src="' + ev.target.result + '">';
+            };
+            reader.readAsDataURL(file);
+        });
+
+        window.addEventListener('paste', function(e) {
+            const items = e.clipboardData.items;
+            for (const item of items) {
+                if (item.type.indexOf('image') !== -1) {
+                    const file = item.getAsFile();
+                    const reader = new FileReader();
+                    reader.onload = function(evt) {
+                        const base64 = evt.target.result;
+                        document.getElementById('image_data').value = base64;
+                        document.getElementById('pasteArea').innerHTML = '<img src="' + base64 + '">';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
