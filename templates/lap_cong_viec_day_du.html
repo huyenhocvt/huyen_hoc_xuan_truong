@@ -73,7 +73,7 @@
         <h2>NHẬP CÔNG VIỆC</h2>
         <form method="POST">
             <label>Thời gian lập (ngay_setup):</label>
-            <input type="text" name="ngay_setup" readonly value="22:26 – 13/05/2025">
+            <input type="text" name="ngay_setup" readonly value="22:38 – 13/05/2025">
 
             <label>Nội dung công việc:</label>
             <input type="text" name="noi_dung" required>
@@ -93,11 +93,11 @@
             </div>
 
             <label>Loại công việc:</label>
-            <select name="loai_viec">
-                <option value="">-- Chọn loại --</option>
-                <option value="Phong thủy">Phong thủy</option>
-                <option value="Cúng lễ">Cúng lễ</option>
-            </select>
+            <input type="text" name="loai_viec" list="loai_cong_viec_list" placeholder="Chọn hoặc nhập loại công việc" required>
+            <datalist id="loai_cong_viec_list">
+                <option value="Phong thủy">
+                <option value="Cúng lễ">
+            </datalist>
 
             <label>Ghi chú:</label>
             <select name="ghi_chu">
