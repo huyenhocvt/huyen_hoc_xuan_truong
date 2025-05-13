@@ -4,35 +4,65 @@
     <meta charset="UTF-8">
     <title>Thêm Người Mới</title>
     <style>
-        body { font-family: Arial, sans-serif; padding: 40px; background: #f9f9f9; }
-        .container {
-            max-width: 700px; margin: auto; background: white; padding: 30px;
-            border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            background: #f9f9f9;
         }
-        label { display: block; margin-top: 10px; font-weight: bold; }
+        .form-container {
+            max-width: 500px;
+            margin: auto;
+            background: #fff;
+            padding: 25px 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 20px;
+            color: #444;
+        }
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+            font-size: 14px;
+        }
         input, select {
-            width: 100%; padding: 8px 10px; margin-top: 4px;
-            font-size: 14px; border: 1px solid #ccc; border-radius: 4px;
+            width: 100%;
+            padding: 7px 10px;
+            margin-top: 4px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
         button {
-            margin-top: 20px; padding: 10px 20px; font-weight: bold;
-            background-color: #007bff; color: white; border: none;
-            border-radius: 4px; cursor: pointer;
+            margin-top: 18px;
+            width: 100%;
+            padding: 10px;
+            font-size: 15px;
+            font-weight: bold;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
-        table { margin-top: 40px; width: 100%; border-collapse: collapse; }
-        table, th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
-        th { background-color: #eee; }
+        button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>THÊM NGƯỜI MỚI</h2>
+    <div class="form-container">
+        <h2>Thêm Người Mới</h2>
         <form method="POST">
             <label>Họ tên:</label>
             <input type="text" name="ten" required>
 
             <label>Địa phương:</label>
-            <input type="text" name="dia_phuong" list="list_dia_phuong" placeholder="Chọn hoặc nhập địa phương">
+            <input type="text" name="dia_phuong" list="list_dia_phuong" placeholder="Nhập hoặc chọn địa phương">
             <datalist id="list_dia_phuong">
                 <option value="TP.HCM">
                 <option value="Hà Nội">
@@ -43,37 +73,18 @@
             </datalist>
 
             <label>Năm sinh:</label>
-            <input type="text" name="nam_sinh" placeholder="Nhập năm sinh hoặc định dạng: 1974 – Giáp Dần">
+            <input type="text" name="nam_sinh" list="list_nam_sinh" placeholder="VD: 1974 – Giáp Dần">
+            <datalist id="list_nam_sinh">
+                {% for i in range(1950, 2026) %}
+                <option value="{{ i }} – {{ ['Giáp','Ất','Bính','Đinh','Mậu','Kỷ','Canh','Tân','Nhâm','Quý'][(i+6)%10] }} {{ ['Tý','Sửu','Dần','Mão','Thìn','Tỵ','Ngọ','Mùi','Thân','Dậu','Tuất','Hợi'][(i+8)%12] }}">
+                {% endfor %}
+            </datalist>
 
             <label>Ngày tham gia:</label>
             <input type="date" name="tham_gia_ngay">
 
-            <button type="submit">Lưu</button>
+            <button type="submit">Lưu thông tin</button>
         </form>
-
-        {% if data and data|length > 0 %}
-        <h3>DANH SÁCH ĐÃ THÊM</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Họ tên</th>
-                    <th>Địa phương</th>
-                    <th>Năm sinh</th>
-                    <th>Ngày tham gia</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for row in data %}
-                <tr>
-                    <td>{{ row["ten"] }}</td>
-                    <td>{{ row["dia_phuong"] }}</td>
-                    <td>{{ row["nam_sinh"] }}</td>
-                    <td>{{ row["tham_gia_ngay"] }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {% endif %}
     </div>
 </body>
 </html>
