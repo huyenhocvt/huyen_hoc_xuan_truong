@@ -1,8 +1,10 @@
-
 from flask import Blueprint, render_template_string
-from utils.time_helper import get_vietnam_time
+from datetime import datetime, timedelta
 
 time_checkbox_bp = Blueprint("time_checkbox", __name__, url_prefix="/chon-gio")
+
+def get_vietnam_time():
+    return datetime.utcnow() + timedelta(hours=7)
 
 @time_checkbox_bp.route("/")
 def chon_gio():
