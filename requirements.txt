@@ -1,11 +1,3 @@
 flask
-openai
-pytesseract
-Pillow
 pandas
-reportlab
 openpyxl
-google-api-python-client
-google-auth
-google-auth-oauthlib
-gspread
