@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Nhập Công Việc</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        label { display: block; margin-top: 10px; }
+        input, select { width: 100%; padding: 5px; margin-top: 5px; }
+        button { margin-top: 15px; padding: 8px 12px; }
+        .inline-button {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .inline-button input {
+            flex: 1;
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+        table {
+            margin-top: 30px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h2>NHẬP CÔNG VIỆC</h2>
+    <form method="POST">
+        <label>Thời gian lập (ngay_setup):</label>
+        <input type="text" name="ngay_setup" readonly value="(tự động từ máy chủ)">
+
+        <label>Nội dung công việc:</label>
+        <input type="text" name="noi_dung" required>
+
+        <label>Hạn hoàn thành:</label>
+        <input type="datetime-local" name="han_hoan_thanh" required>
+
+        <label>Người thực hiện:</label>
+        <div class="inline-button">
+            <select name="nguoi_thuc_hien">
+                <option value="">-- Chọn người --</option>
+            </select>
+            <button type="button" onclick="location.href='/them-nguoi-moi'">Thêm danh sách</button>
+        </div>
+
+        <label>Loại công việc:</label>
+        <select name="loai_viec">
+            <option value="">-- Chọn loại --</option>
+            <option value="Phong thủy">Phong thủy</option>
+            <option value="Cúng lễ">Cúng lễ</option>
+        </select>
+
+        <label>Ghi chú:</label>
+        <select name="ghi_chu">
+            <option value="">-- Chọn --</option>
+            <option value="Chú ý">Chú ý</option>
+            <option value="Không chú ý">Không chú ý</option>
+        </select>
+
+        <button type="submit">Tạo công việc</button>
+    </form>
+
+    <h3>THỐNG KÊ CÔNG VIỆC</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Thời gian lập</th>
+                <th>Công việc</th>
+                <th>Thời gian xong</th>
+                <th>Làm cho ai</th>
+                <th>Loại việc</th>
+                <th>Ghi chú</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- dữ liệu sẽ được thêm bằng server-side -->
+        </tbody>
+    </table>
+</body>
+</html>

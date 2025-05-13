@@ -1,21 +1,20 @@
 
-from flask import Flask, render_template_string
+from flask import Flask, render_template
 from roiter.lap_cong_viec import lap_cong_viec_bp
+from roiter.them_nguoi_moi import them_nguoi_moi_bp
+from roiter.time_checkbox import time_checkbox_bp
 
 app = Flask(__name__)
 app.secret_key = "lapcongviec_2025"
 
+# Đăng ký các blueprint
 app.register_blueprint(lap_cong_viec_bp)
+app.register_blueprint(them_nguoi_moi_bp)
+app.register_blueprint(time_checkbox_bp)
 
 @app.route("/")
 def index():
-    return render_template_string(""" 
-    <h2>CHỨC NĂNG</h2>
-    <div class='roiter-group'>
-        <h3>CÔNG VIỆC</h3>
-        <a href="/lap-cong-viec/">Lập công việc</a>
-    </div>
-    """)
+    return render_template("index.html")
 
 if __name__ == "__main__":
     import os
