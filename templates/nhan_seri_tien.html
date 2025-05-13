@@ -6,7 +6,20 @@
     <style>
         body { font-family: Arial, sans-serif; padding: 20px; background-color: #f9f9f9; }
         .box { border: 2px dashed #ccc; padding: 15px; min-height: 100px; background: white; margin-bottom: 15px; }
-        .preview img { max-width: 100%; margin-top: 10px; border: 1px solid #ccc; }
+        .preview {
+            max-height: 400px;
+            overflow: auto;
+            border: 1px solid #ccc;
+            margin-top: 10px;
+            padding: 5px;
+            background: #fff;
+        }
+        .preview img {
+            max-width: 100%;
+            height: auto;
+            max-height: 380px;
+            object-fit: contain;
+        }
         button { margin-top: 10px; padding: 8px 15px; }
     </style>
 </head>
@@ -26,7 +39,6 @@
     </form>
 
     <script>
-        // Resize ảnh trước khi gán vào input hidden
         function resizeImage(file, maxWidth, callback) {
             const reader = new FileReader();
             reader.onload = function(event) {
@@ -38,7 +50,7 @@
                     canvas.height = img.height * scale;
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                    const resizedBase64 = canvas.toDataURL('image/jpeg', 0.8);  // nén thêm
+                    const resizedBase64 = canvas.toDataURL('image/jpeg', 0.8);
                     callback(resizedBase64);
                 };
                 img.src = event.target.result;
