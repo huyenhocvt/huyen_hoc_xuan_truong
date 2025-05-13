@@ -4,6 +4,7 @@ from PIL import Image
 import base64
 import io
 import os
+import re
 
 nhan_seri_bp = Blueprint('nhan_seri', __name__)
 nhan_seri_bp.secret_key = 'seri_session_key'
@@ -30,9 +31,18 @@ def nhan_seri_tien():
                 session['seri_result'] = 'Không tìm thấy ảnh hợp lệ.'
                 return redirect(url_for('nhan_seri.ket_qua_seri'))
 
+            # OCR
             img = img.resize((img.width * 2, img.height * 2))
             results = reader.readtext('static/images/seri_sample.jpg', detail=0)
-            seri_result = ' | '.join(results) or 'Không nhận dạng được số seri.'
+
+            # Lọc kết quả: chỉ lấy chữ có A-Z và số, độ dài >= 5
+            seri_parts = []
+            for r in results:
+                cleaned = re.sub(r'[^A-Z0-9]', '', r.upper())
+                if len(cleaned) >= 5:
+                    seri_parts.append(cleaned)
+
+            seri_result = ' '.join(seri_parts) if seri_parts else 'Không nhận dạng được số seri.'
 
         except Exception as e:
             seri_result = f'Lỗi xử lý ảnh: {str(e)}'
