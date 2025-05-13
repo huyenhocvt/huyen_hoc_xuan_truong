@@ -31,8 +31,7 @@ def nhan_seri_tien():
                 return redirect(url_for('nhan_seri.ket_qua_seri'))
 
             img = img.resize((img.width * 2, img.height * 2))
-            img_path = 'static/images/seri_sample.jpg'
-            results = reader.readtext(img_path, detail=0)
+            results = reader.readtext('static/images/seri_sample.jpg', detail=0)
             seri_result = ' | '.join(results) or 'Không nhận dạng được số seri.'
 
         except Exception as e:
