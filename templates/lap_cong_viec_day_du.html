@@ -1,85 +1,141 @@
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Nhập Công Việc</title>
     <style>
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        label { display: block; margin-top: 10px; }
-        input, select { width: 100%; padding: 5px; margin-top: 5px; }
-        button { margin-top: 15px; padding: 8px 12px; }
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px 10px;
+            margin-top: 4px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-weight: bold;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
         .inline-button {
             display: flex;
-            align-items: center;
             gap: 10px;
-        }
-        .inline-button input {
-            flex: 1;
-        }
-        table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
-            padding: 5px;
+            align-items: center;
         }
         table {
-            margin-top: 30px;
+            margin-top: 40px;
             width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #eee;
         }
     </style>
 </head>
 <body>
-    <h2>NHẬP CÔNG VIỆC</h2>
-    <form method="POST">
-        <label>Thời gian lập (ngay_setup):</label>
-        <input type="text" name="ngay_setup" readonly value="(tự động từ máy chủ)">
+    <div class="container">
+        <h2>NHẬP CÔNG VIỆC</h2>
+        <form method="POST">
+            <label>Thời gian lập (ngay_setup):</label>
+            <input type="text" name="ngay_setup" readonly value="13:14 – 13/05/2025">
 
-        <label>Nội dung công việc:</label>
-        <input type="text" name="noi_dung" required>
+            <label>Nội dung công việc:</label>
+            <input type="text" name="noi_dung" required>
 
-        <label>Hạn hoàn thành:</label>
-        <input type="datetime-local" name="han_hoan_thanh" required>
+            <label>Hạn hoàn thành:</label>
+            <input type="datetime-local" name="han_hoan_thanh" required>
 
-        <label>Người thực hiện:</label>
-        <div class="inline-button">
-            <select name="nguoi_thuc_hien">
-                <option value="">-- Chọn người --</option>
+            <label>Người thực hiện:</label>
+            <div class="inline-button">
+                <select name="nguoi_thuc_hien" required>
+                    <option value="">-- Chọn người --</option>
+                    {% for nguoi in danh_sach_nguoi %}
+                        <option value="{{ nguoi['ten'] }}">{{ nguoi['ten'] }}</option>
+                    {% endfor %}
+                </select>
+                <button type="button" onclick="location.href='/them-nguoi-moi'">Thêm danh sách</button>
+            </div>
+
+            <label>Loại công việc:</label>
+            <select name="loai_viec">
+                <option value="">-- Chọn loại --</option>
+                <option value="Phong thủy">Phong thủy</option>
+                <option value="Cúng lễ">Cúng lễ</option>
             </select>
-            <button type="button" onclick="location.href='/them-nguoi-moi'">Thêm danh sách</button>
-        </div>
 
-        <label>Loại công việc:</label>
-        <select name="loai_viec">
-            <option value="">-- Chọn loại --</option>
-            <option value="Phong thủy">Phong thủy</option>
-            <option value="Cúng lễ">Cúng lễ</option>
-        </select>
+            <label>Ghi chú:</label>
+            <select name="ghi_chu">
+                <option value="">-- Chọn --</option>
+                <option value="Chú ý">Chú ý</option>
+                <option value="Không chú ý">Không chú ý</option>
+            </select>
 
-        <label>Ghi chú:</label>
-        <select name="ghi_chu">
-            <option value="">-- Chọn --</option>
-            <option value="Chú ý">Chú ý</option>
-            <option value="Không chú ý">Không chú ý</option>
-        </select>
+            <button type="submit">Tạo công việc</button>
+        </form>
 
-        <button type="submit">Tạo công việc</button>
-    </form>
-
-    <h3>THỐNG KÊ CÔNG VIỆC</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Thời gian lập</th>
-                <th>Công việc</th>
-                <th>Thời gian xong</th>
-                <th>Làm cho ai</th>
-                <th>Loại việc</th>
-                <th>Ghi chú</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- dữ liệu sẽ được thêm bằng server-side -->
-        </tbody>
-    </table>
+        {% if data %}
+        <h3>THỐNG KÊ CÔNG VIỆC</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Thời gian lập</th>
+                    <th>Công việc</th>
+                    <th>Thời gian xong</th>
+                    <th>Làm cho ai</th>
+                    <th>Loại việc</th>
+                    <th>Ghi chú</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                    <tr>
+                        <td>{{ row["ngay_setup"] }}</td>
+                        <td>{{ row["noi_dung"] }}</td>
+                        <td>{{ row["han_hoan_thanh"] }}</td>
+                        <td>{{ row["nguoi_thuc_hien"] }}</td>
+                        <td>{{ row["loai_viec"] }}</td>
+                        <td>{{ row["ghi_chu"] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
 </body>
 </html>
