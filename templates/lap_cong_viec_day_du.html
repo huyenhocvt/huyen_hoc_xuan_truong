@@ -73,7 +73,7 @@
         <h2>NHẬP CÔNG VIỆC</h2>
         <form method="POST">
             <label>Thời gian lập (ngay_setup):</label>
-            <input type="text" name="ngay_setup" readonly value="20:47 – 13/05/2025">
+            <input type="text" name="ngay_setup" readonly value="22:26 – 13/05/2025">
 
             <label>Nội dung công việc:</label>
             <input type="text" name="noi_dung" required>
@@ -85,8 +85,8 @@
             <div class="inline-button">
                 <select name="nguoi_thuc_hien" required>
                     <option value="">-- Chọn người --</option>
-                    {% for nguoi in danh_sach_nguoi %}
-                        <option value="{{ nguoi['ten'] }}">{{ nguoi['ten'] }}</option>
+                    {% for ten in danh_sach_nguoi %}
+                        <option value="{{ ten }}">{{ ten }}</option>
                     {% endfor %}
                 </select>
                 <button type="button" onclick="location.href='/them-nguoi-moi'">Thêm danh sách</button>
