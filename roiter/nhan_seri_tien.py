@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session
-import pytesseract
+import easyocr
 from PIL import Image
 import base64
 import io
@@ -7,6 +7,8 @@ import os
 
 nhan_seri_bp = Blueprint('nhan_seri', __name__)
 nhan_seri_bp.secret_key = 'seri_session_key'
+
+reader = easyocr.Reader(['en'])
 
 @nhan_seri_bp.route('/nhan-seri-tien', methods=['GET', 'POST'])
 def nhan_seri_tien():
@@ -28,10 +30,10 @@ def nhan_seri_tien():
                 session['seri_result'] = 'Không tìm thấy ảnh hợp lệ.'
                 return redirect(url_for('nhan_seri.ket_qua_seri'))
 
-            # Xử lý ảnh trước khi OCR
             img = img.resize((img.width * 2, img.height * 2))
-            seri_text = pytesseract.image_to_string(img, config='--psm 7 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789')
-            seri_result = seri_text.strip() or 'Không nhận dạng được số seri.'
+            img_path = 'static/images/seri_sample.jpg'
+            results = reader.readtext(img_path, detail=0)
+            seri_result = ' | '.join(results) or 'Không nhận dạng được số seri.'
 
         except Exception as e:
             seri_result = f'Lỗi xử lý ảnh: {str(e)}'
