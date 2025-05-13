@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+ENV/
+*.env
+
+# Flask
+instance/
+.webassets-cache
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# VSCode
+.vscode/
+
+# Excel file tạm
+~$*.xlsx
+
+# Compiled files
+*.log
+
+# Backup
+*.bak
+*.swp
+
+# Render, build tools
+*.sqlite3
+*.db
+*.tmp
