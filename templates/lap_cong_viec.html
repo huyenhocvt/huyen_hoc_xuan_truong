@@ -1,52 +1,51 @@
-
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>LẬP CÔNG VIỆC</title>
-</head>
-<body>
-    <h2>LẬP CÔNG VIỆC</h2>
-
-    {% if ten_vua_ghi %}
-        <p style="color: green; font-weight: bold;">
-            ✅ Công việc "{{ ten_vua_ghi }}" đã được ghi thành công!
-        </p>
-        <p style="color: red; font-style: italic;">
-            ⚠️ Hãy nhấn <a href="/tai-cong-viec" target="_blank">tải file công việc</a> về ngay để lưu vĩnh viễn!
-        </p>
-    {% endif %}
-
-    <form method="POST" action="/lap-cong-viec/">
-        <label>Nội dung:</label><br>
-        <input type="text" name="noi_dung" required><br><br>
-
-        <label>Hạn hoàn thành:</label><br>
-        <input type="datetime-local" name="han_hoan_thanh" required><br><br>
-
-        <label>Người thực hiện:</label><br>
-        <select name="nguoi_thuc_hien">
-            {% for ten in ds_nguoi %}
-                <option value="{{ ten }}">{{ ten }}</option>
-            {% endfor %}
-        </select>
-        <a href="/them-nguoi-moi">+ Thêm người mới</a><br><br>
-
-        <label>Loại việc:</label><br>
-        <select name="loai_viec">
-            {% for loai in ds_loai %}
-                <option value="{{ loai }}">{{ loai }}</option>
-            {% endfor %}
-        </select><br><br>
-
-        <label>Ghi chú:</label><br>
-        <input type="text" name="ghi_chu"><br><br>
-
-        <button type="submit">Thêm</button>
-    </form>
-
-    <p style="margin-top: 20px;">
-        <a href="/tai-cong-viec" style="font-weight: bold;">⬇️ Tải file công việc (cong_viec.xlsx)</a>
-    </p>
-</body>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>LẬP CÔNG VIỆC</title>
+</head>
+<body>
+    <h2>LẬP CÔNG VIỆC</h2>
+
+    {% if ten_vua_ghi %}
+        <p style="color: green; font-weight: bold;">
+            ✅ Công việc "{{ ten_vua_ghi }}" đã được ghi thành công!
+        </p>
+        <p style="color: red; font-style: italic;">
+            ⚠️ Hãy nhấn <a href="/tai-cong-viec" target="_blank">tải file công việc</a> về ngay để lưu vĩnh viễn!
+        </p>
+    {% endif %}
+
+    <form method="POST" action="/lap-cong-viec/">
+        <label>Nội dung:</label><br>
+        <input type="text" name="noi_dung" required><br><br>
+
+        <label>Hạn hoàn thành:</label><br>
+        <input type="datetime-local" name="han_hoan_thanh" required><br><br>
+
+        <label>Người thực hiện:</label><br>
+        <select name="nguoi_thuc_hien">
+            {% for ten in ds_nguoi %}
+                <option value="{{ ten }}">{{ ten }}</option>
+            {% endfor %}
+        </select>
+        <a href="/them-nguoi-moi">+ Thêm người mới</a><br><br>
+
+        <label>Loại việc:</label><br>
+        <select name="loai_viec">
+            {% for loai in ds_loai %}
+                <option value="{{ loai }}">{{ loai }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label>Ghi chú:</label><br>
+        <input type="text" name="ghi_chu"><br><br>
+
+        <button type="submit">Thêm</button>
+    </form>
+
+    <p style="margin-top: 20px;">
+        <a href="/tai-cong-viec" style="font-weight: bold;">⬇️ Tải file công việc (cong_viec.xlsx)</a>
+    </p>
+</body>
 </html>
