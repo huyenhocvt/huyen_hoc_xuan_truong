@@ -12,10 +12,17 @@ def them_nguoi_moi():
         row = {
             "ten": request.form.get("ten"),
             "dia_phuong": request.form.get("dia_phuong"),
-            "nam_sinh_duong": request.form.get("nam_sinh_duong"),
-            "nam_sinh_am": request.form.get("nam_sinh_am"),
-            "tham_gia_ngay": request.form.get("tham_gia_ngay") or datetime.now().strftime("%Y-%m-%d")
+            "nam_sinh": request.form.get("nam_sinh"),
+            "tham_gia_ngay": "",
         }
+
+        raw_date = request.form.get("tham_gia_ngay")
+        if raw_date:
+            try:
+                row["tham_gia_ngay"] = datetime.strptime(raw_date, "%Y-%m-%d").strftime("%d/%m/%Y")
+            except:
+                row["tham_gia_ngay"] = raw_date
+
         session["danh_sach_nguoi"].append(row)
         session.modified = True
         return redirect("/them-nguoi-moi")
