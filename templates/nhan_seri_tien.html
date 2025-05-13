@@ -22,13 +22,7 @@
             padding: 5px;
             background: #fff;
         }
-        textarea {
-            width: 100%;
-            height: 150px;
-        }
-        .buttons {
-            margin-top: 20px;
-        }
+        .buttons { margin-top: 20px; }
         button {
             margin-right: 10px;
             padding: 10px 15px;
@@ -51,8 +45,9 @@
         <input type="file" name="file_upload" id="file_upload" accept="image/*"><br>
         <div class="preview" id="filePreview"></div>
 
-        <p><strong>Hoặc dán ảnh vào đây (Ctrl+V):</strong></p>
-        <textarea id="pasteArea" name="image_data" placeholder="Dán hình ảnh vào đây..."></textarea>
+        <p><strong>Hoặc dán ảnh vào (Ctrl+V):</strong></p>
+        <div class="preview" id="pasteInfo">Dán ảnh vào trang này để xem trước và nhận dạng</div>
+        <input type="hidden" id="image_data" name="image_data">
 
         <div class="buttons">
             <button type="submit">Nhận dạng</button>
@@ -91,7 +86,7 @@
             reader.readAsDataURL(file);
         });
 
-        document.getElementById('pasteArea').addEventListener('paste', function(e) {
+        window.addEventListener('paste', function(e) {
             const items = e.clipboardData.items;
             for (const item of items) {
                 if (item.type.indexOf('image') !== -1) {
@@ -99,9 +94,9 @@
                     const reader = new FileReader();
                     reader.onload = function(event) {
                         const base64Image = event.target.result;
-                        const preview = document.getElementById('filePreview');
+                        document.getElementById('image_data').value = base64Image;
+                        const preview = document.getElementById('pasteInfo');
                         preview.innerHTML = '<img src="' + base64Image + '" alt="Pasted Image">';
-                        document.getElementById('pasteArea').value = base64Image;
                     };
                     reader.readAsDataURL(file);
                 }
