@@ -1,17 +1,22 @@
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>LẬP CÔNG VIỆC</title>
+    <title>Lập Công Việc</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+        table {
+            margin-top: 30px;
+        }
+    </style>
 </head>
 <body>
     <h2>LẬP CÔNG VIỆC</h2>
-
-    {% if ten_vua_ghi %}
-        <p style="color: green; font-weight: bold;">
-            ✅ Công việc "{{ ten_vua_ghi }}" đã được ghi thành công!
-        </p>
-    {% endif %}
 
     <form method="POST" action="/lap-cong-viec/">
         <label>Nội dung:</label><br>
@@ -21,24 +26,37 @@
         <input type="datetime-local" name="han_hoan_thanh" required><br><br>
 
         <label>Người thực hiện:</label><br>
-        <select name="nguoi_thuc_hien">
-            {% for ten in ds_nguoi %}
-                <option value="{{ ten }}">{{ ten }}</option>
-            {% endfor %}
-        </select>
-        <a href="/them-nguoi-moi">+ Thêm người mới</a><br><br>
+        <input type="text" name="nguoi_thuc_hien" required><br><br>
 
-        <label>Loại việc:</label><br>
-        <select name="loai_viec">
-            {% for loai in ds_loai %}
-                <option value="{{ loai }}">{{ loai }}</option>
-            {% endfor %}
-        </select><br><br>
+        <label>Loại công việc:</label><br>
+        <input type="text" name="loai_viec" required><br><br>
 
         <label>Ghi chú:</label><br>
         <input type="text" name="ghi_chu"><br><br>
 
-        <button type="submit">Gửi</button>
+        <button type="submit">Tạo</button>
     </form>
+
+    {% if data %}
+    <h3>DANH SÁCH CÔNG VIỆC ĐÃ NHẬP:</h3>
+    <table>
+        <thead>
+            <tr>
+                {% for col in data[0].keys() %}
+                    <th>{{ col }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+                <tr>
+                    {% for value in row.values() %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
 </body>
 </html>
