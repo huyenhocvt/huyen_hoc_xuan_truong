@@ -1,3 +1,4 @@
+from roiter.nhan_seri_tien import nhan_seri_bp
 
 from flask import Flask, render_template
 from roiter.lap_cong_viec import lap_cong_viec_bp
@@ -8,6 +9,7 @@ app = Flask(__name__)
 app.secret_key = "lapcongviec_2025"
 
 # Đăng ký các blueprint
+app.register_blueprint(nhan_seri_bp)
 app.register_blueprint(lap_cong_viec_bp)
 app.register_blueprint(them_nguoi_moi_bp)
 app.register_blueprint(time_checkbox_bp)

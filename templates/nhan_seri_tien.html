@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Nhận dạng seri tiền</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f9f9f9; }
+        .container { display: flex; gap: 20px; }
+        .left, .right { flex: 1; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .left img { max-width: 100%; margin-bottom: 10px; }
+        textarea { width: 100%; height: 150px; }
+        .buttons { margin-top: 20px; }
+        button { margin-right: 10px; padding: 10px 15px; font-size: 14px; }
+        input[type="file"] { margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h2>Nhận dạng seri tiền</h2>
+    <form method="POST" action="/process-seri-tien" enctype="multipart/form-data">
+        <label>Dán hoặc chọn ảnh chứa seri tiền:</label><br>
+        <textarea id="pasteArea" name="image_data" placeholder="Dán hình ảnh vào đây..."></textarea>
+        <input type="file" name="file_upload" accept="image/*" multiple><br>
+        <div class="buttons">
+            <button type="submit">Nhận dạng</button>
+            <button type="button" onclick="location.href='/index'">Về trang chủ</button>
+        </div>
+    </form>
+    <hr>
+    <div class="container">
+        <div class="left">
+            <h3>Ảnh seri tiền</h3>
+            <img src="/static/images/seri_sample.jpg" alt="Seri tiền mẫu">
+        </div>
+        <div class="right">
+            <h3>Kết quả nhận dạng</h3>
+            <p><strong>Seri:</strong> {{ seri_result if seri_result else 'Chưa có kết quả' }}</p>
+            <button onclick="copyText('{{ seri_result }}')">Copy seri tiền</button>
+        </div>
+    </div>
+    <script>
+        function copyText(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                alert('Đã copy seri tiền: ' + text);
+            });
+        }
+    </script>
+</body>
+</html>
