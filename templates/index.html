@@ -1,11 +1,88 @@
-<div class="roiter-group">
-    <h3>CÔNG VIỆC</h3>
-    <a href="/lap-cong-viec">Nhập công việc</a>
-    <a href="/cong-viec-gap">Công việc gấp</a>
-    <a href="/cong-viec-ngay-mai">Công việc ngày mai</a>
-    <a href="/cong-viec-tuan-nay">Công việc tuần này</a>
-</div>
-<div class="roiter-group">
-    <h3>PHONG THỦY</h3>
-    <a href="/do-nha">Độ nhà</a>
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Huyền học Xuân Trường</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            box-sizing: border-box;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .top {
+            width: 100%;
+        }
+        .top img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .bottom {
+            flex: 1;
+            display: flex;
+        }
+        .left {
+            flex: 3;
+            background-color: #f4f4f4;
+            padding: 15px;
+            overflow-y: auto;
+        }
+        .right {
+            flex: 7;
+            padding: 15px;
+        }
+        .roiter-group {
+            margin-bottom: 20px;
+        }
+        .roiter-group h3 {
+            color: green;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .roiter-group a {
+            display: block;
+            margin: 5px 0;
+            font-size: 17px;
+            font-weight: bold;
+            color: blue;
+            text-decoration: none;
+        }
+        .roiter-group a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top">
+            <img src="/static/images/baner.jpg" alt="Banner">
+        </div>
+        <div class="bottom">
+            <div class="left">
+                <div class="roiter-group">
+                    <h3>CÔNG VIỆC</h3>
+                    <a href="/lap-cong-viec">Nhập công việc</a>
+                    <a href="/cong-viec-gap">Công việc gấp</a>
+                    <a href="/cong-viec-ngay-mai">Công việc ngày mai</a>
+                    <a href="/cong-viec-tuan-nay">Công việc tuần này</a>
+                </div>
+                <div class="roiter-group">
+                    <h3>PHONG THỦY</h3>
+                    <a href="/do-nha">Độ nhà</a>
+                </div>
+            </div>
+            <div class="right">
+                <h2>Lịch ngày hôm nay</h2>
+                <p>Sẽ cập nhật sau...</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
