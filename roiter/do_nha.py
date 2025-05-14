@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request
 import pandas as pd
 
 do_nha_bp = Blueprint("do_nha_bp", __name__)
-df = pd.read_excel("data/72_nha.xlsx")
+df = pd.read_excel("data/72_nha.xlsx", dtype=str)  # Đọc toàn bộ dưới dạng chuỗi
 
 @do_nha_bp.route("/do-nha", methods=["GET", "POST"])
 def do_nha():
@@ -13,7 +13,7 @@ def do_nha():
     if request.method == "POST":
         huong = request.form.get("huong")
         van = request.form.get("van")
-        row = df[(df["do_so_huong"] == huong) & (df["van"] == int(van))]
+        row = df[(df["do_so_huong"] == huong) & (df["van"] == van)]
         if not row.empty:
             ket_qua = row.iloc[0].to_dict()
 
