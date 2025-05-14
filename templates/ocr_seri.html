@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>OCR Seri Tiền (EasyOCR)</title>
+<style>
+.preview { max-height: 400px; overflow: auto; border: 1px solid #ccc; padding: 5px; background: #fff; }
+.preview img { max-width: 100%; max-height: 380px; object-fit: contain; }
+</style>
+</head>
+<body>
+<h2>OCR Seri Tiền (EasyOCR)</h2>
+<form method="POST" action="/ocr-seri" enctype="multipart/form-data">
+    <input type="file" name="file_upload" id="file_upload" accept="image/*"><br>
+    <div class="preview" id="filePreview"></div>
+    <p>Dán ảnh vào đây (Ctrl+V):</p>
+    <div id="pasteArea" style="border: 1px dashed #aaa; min-height: 100px; padding: 10px;">(chờ dán)</div>
+    <input type="hidden" name="image_data" id="image_data">
+    <br><button type="submit">Nhận dạng</button>
+</form>
+<script>
+function resizeImage(file, maxWidth, callback) {
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+        const img = new Image();
+        img.onload = function() {
+            const canvas = document.createElement('canvas');
+            const scale = maxWidth / img.width;
+            canvas.width = maxWidth;
+            canvas.height = img.height * scale;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            const resized = canvas.toDataURL('image/jpeg', 0.8);
+            callback(resized);
+        };
+        img.src = evt.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+document.getElementById('file_upload').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    resizeImage(file, 500, function(resized) {
+        document.getElementById('image_data').value = resized;
+        document.getElementById('filePreview').innerHTML = '<img src="' + resized + '">';
+    });
+});
+window.addEventListener('paste', function(e) {
+    const items = e.clipboardData.items;
+    for (let item of items) {
+        if (item.type.indexOf("image") !== -1) {
+            const file = item.getAsFile();
+            resizeImage(file, 500, function(resized) {
+                document.getElementById('image_data').value = resized;
+                document.getElementById('pasteArea').innerHTML = '<img src="' + resized + '">';
+            });
+        }
+    }
+});
+</script>
+</body>
+</html>
