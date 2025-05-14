@@ -4,24 +4,45 @@
         <meta charset="UTF-8">
         <title>Nhà số 1: Hướng Bắc - Nhâm kiêm Hợi</title>
         <style>
-            body { font-family: Arial, sans-serif; padding: 20px; }
-            h1 { color: #2c3e50; }
-            .section { margin-bottom: 15px; }
-            .label { font-weight: bold; color: #34495e; }
+            body {
+                font-family: Arial, sans-serif;
+                padding: 40px;
+                max-width: 900px;
+                margin: auto;
+                line-height: 1.6;
+                font-size: 16px;
+            }
+            h1 {
+                color: #2c3e50;
+                text-align: center;
+            }
+            .section {
+                margin-bottom: 20px;
+            }
+            .label {
+                font-weight: bold;
+                color: #34495e;
+            }
             .grid {
                 display: grid;
                 grid-template-columns: 1fr 1fr 1fr;
-                width: 300px;
-                margin-top: 10px;
+                gap: 10px;
+                margin-top: 20px;
+                justify-items: center;
             }
             .cell {
-                border: 1px solid #999;
-                padding: 10px;
-                height: 80px;
+                border: 2px solid #e74c3c;
+                padding: 15px;
+                height: 100px;
+                width: 100px;
                 text-align: center;
                 font-weight: bold;
-                font-size: 14px;
+                font-size: 16px;
                 background-color: #ffffe0;
+                color: red;
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
         </style>
     </head>
