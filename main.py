@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import redirect, Flask, render_template
 from roiter.do_nha import do_nha_bp
 from roiter.lap_cong_viec import lap_cong_viec_bp
 from roiter.them_nguoi_moi import them_nguoi_moi_bp
@@ -17,13 +17,9 @@ app.register_blueprint(time_checkbox_bp)
 def index():
     return render_template("index.html")
 
-@app.route("/72_nha/day_du")
-def index_72_day_du():
-    return render_template("72_nha/index_72_nha_day_du.html")
-
-@app.route("/98_ma_phuong")
-def index_98_ma_phuong():
-    return render_template("ma_phuong/index_98_ma_phuong.html")
+@app.route("/72_nha/index_72_nha")
+def index_72_nha_legacy():
+    return redirect("/72_nha/day_du")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
