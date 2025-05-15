@@ -24,6 +24,9 @@ def index_72_nha_legacy():
 @app.route("/72_nha/day_du")
 def index_72_day_du():
     return render_template("72_nha/index_72_nha_day_du.html")
+@app.route("/98_ma_phuong")
+def index_98_ma_phuong():
+    return render_template("ma_phuong/index_98_ma_phuong.html")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
