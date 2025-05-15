@@ -1,16 +1,120 @@
 <!DOCTYPE html>
-<html><head><meta charset="UTF-8">
-<title>72 Nhà – Đầy đủ tên theo hướng</title>
-<style>
-body { font-family: Arial; background: #fffce8; padding: 20px; }
-.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.cell { border: 1px solid #aaa; padding: 5px; font-size: 13px; min-height: 160px; }
-.cell h3 { text-align: center; font-size: 14px; margin: 5px 0; }
-.cell a { display: block; font-size: 12px; color: #004488; text-decoration: none; }
-.cell a:hover { text-decoration: underline; }
-</style>
-</head><body>
-<h1>72 Nhà – Sơ đồ 9 ô theo hướng phong thủy</h1>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>72 Nhà – Bố cục 9 ô có menu</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #FAF3DD;
+            font-family: Arial, sans-serif;
+            box-sizing: border-box;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .top {
+            width: 100%;
+            overflow: hidden;
+        }
+        .top img {
+            width: 100%;
+            height: auto;
+            max-height: 160px;
+            display: block;
+        }
+        .bottom {
+            flex: 1;
+            display: flex;
+            height: calc(100vh - 160px);
+        }
+        .left {
+            width: 20%;
+            background-color: #f4f4f4;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+        .right {
+            width: 80%;
+            padding: 15px;
+            overflow-y: auto;
+            box-sizing: border-box;
+        }
+        .roiter-group {
+            margin-bottom: 20px;
+        }
+        .roiter-group h3 {
+            color: green;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .roiter-group a {
+            display: block;
+            margin: 5px 0;
+            font-size: 17px;
+            font-weight: bold;
+            color: blue;
+            text-decoration: none;
+        }
+        .roiter-group a:hover {
+            text-decoration: underline;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        .cell {
+            border: 1px solid #aaa;
+            padding: 5px;
+            font-size: 13px;
+            min-height: 160px;
+        }
+        .cell h3 {
+            text-align: center;
+            font-size: 14px;
+            margin: 5px 0;
+        }
+        .cell a {
+            display: block;
+            font-size: 12px;
+            color: #004488;
+            text-decoration: none;
+        }
+        .cell a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="top">
+        <img src="/static/images/baner.jpg" alt="Banner">
+    </div>
+    <div class="bottom">
+        <div class="left">
+            <div class="roiter-group">
+                <h3>CÔNG VIỆC</h3>
+                <a href="/lap-cong-viec">Nhập công việc</a>
+                <a href="/cong-viec-gap">Công việc gấp</a>
+                <a href="/cong-viec-ngay-mai">Công việc ngày mai</a>
+                <a href="/cong-viec-tuan-nay">Công việc tuần này</a>
+            </div>
+            <div class="roiter-group">
+                <h3>PHONG THỦY</h3>
+                <a href="/72_nha/day_du">72 nhà</a>
+            </div>
+            <div class="roiter-group">
+                <h3>PHÙ CHÚ</h3>
+                <a href="/98_ma_phuong">98 ma phương</a>
+            </div>
+        </div>
+        <div class="right">
+            <h2>72 Nhà – Sơ đồ 9 ô theo hướng phong thủy</h2>
 <div class="grid">
 <div class="cell">
 <h3>Ô 1 – Tây Bắc</h3>
@@ -111,6 +215,11 @@ body { font-family: Arial; background: #fffce8; padding: 20px; }
 <a href="nha_71.html">Nhà số 71: Hướng Tây Bắc - Chính Hợi</a>
 <a href="nha_72.html">Nhà số 72: Hướng Tây Bắc - Hợi kiêm Nhâm</a>
 </div>
+</div>
+</body>
+</html>
+        </div>
+    </div>
 </div>
 </body>
 </html>
